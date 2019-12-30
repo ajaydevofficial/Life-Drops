@@ -8,7 +8,6 @@
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-address-card"></i> Dashboard</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn shadow btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
 
                 <!--User Content-->
@@ -23,22 +22,22 @@
 
                 <div class="row">
                     <div class="col-md-4 display-grid">
-                        <button class="btn raise-button shadow btn-primary mt-2 mb-2">
+                        <a routerLink="/create/blood-donation-event" class="btn raise-button shadow btn-primary mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-calendar-plus"></i></span>
                             <span class="text">Create a blood donation event</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="col-md-4 display-grid">
-                        <button class="btn raise-button shadow btn-danger  mt-2 mb-2">
+                        <a routerLink="/create/urgent-requirement" class="btn raise-button shadow btn-danger  mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-bullhorn"></i></span>
                             <span class="text">Post an urgent requirement</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="col-md-4 display-grid">
-                        <button class="btn raise-button shadow btn-warning  mt-2 mb-2">
+                        <a routerLink="/create/requirement" class="btn raise-button shadow btn-warning  mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-plus"></i></span>
                             <span class="text">Post a blood requirement</span>
-                        </button>
+                        </a>
                     </div>
 
                 </div>
@@ -46,10 +45,20 @@
                 <!--Note-->
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="card shadow mb-4 mt-2">
                             <div class="card-header">
                                 <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-exclamation-triangle"></i> Note</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted m-0 p-0">The events raised by users will be validated by the admin before releasing the post</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow mb-4 mt-2">
+                            <div class="card-header">
+                                <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-quote-right"></i> Tips</p>
                             </div>
                             <div class="card-body">
                                 <p class="text-muted m-0 p-0">The events raised by users will be validated by the admin before releasing the post</p>
@@ -74,11 +83,11 @@
                                 </p>
                                 <div class="button-container">
                                     <button class="btn btn-success btn-icon-split status-button mr-1 mb-1">
-                                        <span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                        <span class="icon text-white-50"><i class="fas fa-thumbs-up"></i></span>
                                         <span class="text">Can Donate</span>
                                     </button>
                                     <button class="btn disabled btn-danger btn-icon-split status-button mr-1 mb-1 ">
-                                        <span class="icon text-white-50"><i class="fas fa-times"></i></span>
+                                        <span class="icon text-white-50"><i class="fas fa-thumbs-down"></i></span>
                                         <span class="text">Cannot Donate</span>
                                     </button>
                                 </div>

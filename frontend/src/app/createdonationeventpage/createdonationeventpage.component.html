@@ -1,0 +1,56 @@
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <app-navbar></app-navbar>
+            <div class="container">
+                <div class="header text-center">
+                    <i class="fas fa-calendar-plus text-gray-300 header-icon"></i>
+                    <h4 class="mt-2 text-gray-300">Create Blood Donation Event</h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="card shadow mb-4 mx-auto">
+                            <div class="card-body">
+                                <form class="user">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="from-date">From (Date)</label>
+                                            <input required name="from-date" type="date" class="form-control">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="to-date">To (Date)</label>
+                                            <input required name="to-date" type="date" class="form-control">
+                                        </div>          
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="place">Place/Institution</label>
+                                      <input name="place" required type="text" class="form-control"  placeholder="Place">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="area">Area/Locality</label>
+                                        <input name="area" required type="text" class="form-control"  placeholder="Area">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city">City/District</label>
+                                        <input name="city" required type="text" class="form-control"  placeholder="City/District">
+                                    </div>
+                                    <div class="form-group">
+                                        <small>Note : The events are validated by the admins before publishing. Make sure the event is a legitimate one before adding.</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                      <i class="fas fa-flag text-white-50"></i> Create Blood Dontion Event
+                                    </button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+
+    </div>
+</div>        
+

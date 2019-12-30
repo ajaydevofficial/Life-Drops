@@ -1,0 +1,72 @@
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <app-navbar></app-navbar>
+            <div class="container">
+                <div class="header text-center">
+                    <i class="fas fa-tint top text-gray-300 header-icon"></i>
+                    <h4 class="mt-2 text-gray-300">Create Blood Requirement</h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="card shadow mb-4 mx-auto">
+                            <div class="card-body">
+                                <form class="user">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="patient">Patient Name</label>
+                                            <input required name="patient" type="text" class="form-control" placeholder="Patient Name">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="doctor">Doctor Name</label>
+                                            <input required name="doctor" type="text" class="form-control" placeholder="Doctor Name">
+                                        </div>          
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="place">Blood Group</label>
+                                        <select class="form-control" name="blood-group" id="blood-group">
+                                            <option hidden selected disabled>Select Blood Group</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="place">Hospital Name</label>
+                                      <input name="place" required type="text" class="form-control"  placeholder="Hospital Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="area">Area/Locality</label>
+                                        <input name="area" required type="text" class="form-control"  placeholder="Area">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city">City/District</label>
+                                        <input name="city" required type="text" class="form-control"  placeholder="City/District">
+                                    </div>
+                                    <div class="form-group">
+                                        <small>
+                                            Note : The requirements are validated by the admins before publishing. Make sure the event is a legitimate one before adding
+                                        </small>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning btn-block">
+                                      <i class="fas fa-plus text-white-50"></i> Create Requirement
+                                    </button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+
+    </div>
+</div>        
+
