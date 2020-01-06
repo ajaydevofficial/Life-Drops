@@ -1,3 +1,5 @@
+import { ContactpageComponent } from './contactpage/contactpage.component';
+import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { CreaterequirementpageComponent } from './createrequirementpage/createrequirementpage.component';
 import { CreateurgentrequirementpageComponent } from './createurgentrequirementpage/createurgentrequirementpage.component';
 import { CreatedonationeventpageComponent } from './createdonationeventpage/createdonationeventpage.component';
@@ -26,6 +28,8 @@ const routes: Routes = [];
     {path:'create/blood-donation-event',component:CreatedonationeventpageComponent},
     {path:'create/urgent-requirement',component:CreateurgentrequirementpageComponent},
     {path:'create/requirement',component:CreaterequirementpageComponent},
+    {path:'about',component:AboutpageComponent},
+    {path:'contact',component:ContactpageComponent},
   ])],
   exports: [RouterModule]
 })

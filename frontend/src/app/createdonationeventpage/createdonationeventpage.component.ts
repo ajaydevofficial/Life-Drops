@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import LocationPicker from "location-picker";
 
 @Component({
   selector: 'app-createdonationeventpage',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatedonationeventpageComponent implements OnInit {
 
+  lp: LocationPicker;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(){
+    this.lp = new LocationPicker('map');
   }
+  
+  setLocation() {
+    console.log(this.lp.getMarkerPosition());
+  }
+
 
 }

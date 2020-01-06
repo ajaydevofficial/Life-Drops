@@ -20,6 +20,8 @@ import { DonorregistrationpageComponent } from './donorregistrationpage/donorreg
 import { CreaterequirementpageComponent } from './createrequirementpage/createrequirementpage.component';
 import { CreateurgentrequirementpageComponent } from './createurgentrequirementpage/createurgentrequirementpage.component';
 import { CreatedonationeventpageComponent } from './createdonationeventpage/createdonationeventpage.component';
+import { AboutpageComponent } from './aboutpage/aboutpage.component';
+import { ContactpageComponent } from './contactpage/contactpage.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { CreatedonationeventpageComponent } from './createdonationeventpage/crea
     DonorregistrationpageComponent,
     CreaterequirementpageComponent,
     CreateurgentrequirementpageComponent,
-    CreatedonationeventpageComponent
+    CreatedonationeventpageComponent,
+    AboutpageComponent,
+    ContactpageComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@
                         <div class="card shadow mb-4 mx-auto">
                             <div class="card-body">
                                 <form class="user">
+                                    <div id="map"></div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="from-date">From (Date)</label>
@@ -38,7 +39,7 @@
                                     <div class="form-group">
                                         <small>Note : The events are validated by the admins before publishing. Make sure the event is a legitimate one before adding.</small>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-block">
+                                    <button type="submit" (click)="setLocation()" class="btn btn-primary btn-block">
                                       <i class="fas fa-flag text-white-50"></i> Create Blood Dontion Event
                                     </button>
                                   </form>

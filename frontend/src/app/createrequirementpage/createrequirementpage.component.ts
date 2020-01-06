@@ -1,3 +1,4 @@
+import LocationPicker from "location-picker";
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreaterequirementpageComponent implements OnInit {
 
+  lp: LocationPicker;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(){
+    this.lp = new LocationPicker('map');
+  }
+  
+  setLocation() {
+    console.log(this.lp.getMarkerPosition());
   }
 
 }

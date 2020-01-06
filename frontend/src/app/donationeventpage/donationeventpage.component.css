@@ -1,0 +1,10 @@
+.card-body a{
+    width: 100%;
+}
+.btn{
+    border-radius: 0 0 5px 5px;
+}
+
+.badge{
+    border-radius: 2px;
+}
