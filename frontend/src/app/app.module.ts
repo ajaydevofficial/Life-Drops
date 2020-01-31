@@ -1,3 +1,4 @@
+import { NotifierService } from './shared/notifier.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,7 @@ import { CreateurgentrequirementpageComponent } from './createurgentrequirementp
 import { CreatedonationeventpageComponent } from './createdonationeventpage/createdonationeventpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { ContactpageComponent } from './contactpage/contactpage.component';
+import { NotifierComponent } from './notifier/notifier.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ContactpageComponent } from './contactpage/contactpage.component';
     CreateurgentrequirementpageComponent,
     CreatedonationeventpageComponent,
     AboutpageComponent,
-    ContactpageComponent
+    ContactpageComponent,
+    NotifierComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,7 @@ import { ContactpageComponent } from './contactpage/contactpage.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [NotifierService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

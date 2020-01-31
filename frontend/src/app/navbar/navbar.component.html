@@ -3,7 +3,7 @@
     <div class="container">
       <!-- Topbar Navbar -->
       <a routerLink="/" class="my-auto h4 text-gray-600 text-decoration-none">LOGO</a>
-      <ul class="navbar-nav ml-auto">
+      <ul *ngIf="!isLogin()" class="navbar-nav ml-auto">
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
