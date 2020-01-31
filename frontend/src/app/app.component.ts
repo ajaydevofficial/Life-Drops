@@ -1,5 +1,6 @@
 import { environment } from './../environments/environment.prod';
 import { Component } from '@angular/core';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Life Drops';
+  ngOnInit(){
+    firebase.initializeApp(environment.firebase)
+  }
 }

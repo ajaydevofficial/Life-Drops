@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginpage',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginpageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private afAuth:AngularFireAuth,private router:Router) { 
+    if(localStorage.getItem('loggedUser')){
+      this.router.navigate(['/'])
+    }
+  }
 
   ngOnInit() {
+  }
+
+  login(){
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>{
+      if(firebase.auth().currentUser){
+        localStorage.setItem('loggedUser',JSON.stringify(firebase.auth().currentUser))
+        this.router.navigate(['/'])
+      }
+    })
+   
   }
 
 }

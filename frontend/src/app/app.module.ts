@@ -2,9 +2,6 @@ import { NotifierService } from './shared/notifier.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from  '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +21,9 @@ import { CreatedonationeventpageComponent } from './createdonationeventpage/crea
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { NotifierComponent } from './notifier/notifier.component';
+
+import { AngularFireModule } from  '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
