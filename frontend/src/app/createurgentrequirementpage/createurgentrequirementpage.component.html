@@ -16,14 +16,18 @@
                                     <div id="map"></div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="patient">Patient Name</label>
+                                            <label for="patient">Patient's Name</label>
                                             <input required name="patient" type="text" class="form-control" placeholder="Patient Name">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="doctor">Doctor Name</label>
+                                            <label for="doctor">Doctor's Name</label>
                                             <input required name="doctor" type="text" class="form-control" placeholder="Doctor Name">
-                                        </div>          
+                                        </div>         
                                     </div>
+                                    <div class="form-group">
+                                        <label for="bystander">Bystander's Name</label>
+                                        <input required name="bystander" type="text" class="form-control" placeholder="Bystander's Name">
+                                    </div> 
                                     <div class="form-group">
                                         <label for="place">Blood Group</label>
                                         <select class="form-control" name="blood-group" id="blood-group">
@@ -39,8 +43,12 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="place">Quantity (in Units)</label>
+                                        <input name="place" required type="number" class="form-control"  placeholder="Quantity">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="place">Hospital Name</label>
-                                      <input name="place" required type="text" class="form-control"  placeholder="Hospital Name">
+                                        <input name="place" required type="text" class="form-control"  placeholder="Hospital Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="area">Area/Locality</label>
