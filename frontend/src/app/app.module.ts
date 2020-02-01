@@ -2,6 +2,7 @@ import { NotifierService } from './shared/notifier.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,7 +51,11 @@ import { LoginGuard } from './route.guard';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AgmCoreModule.forRoot({
+      apiKey:environment.googleMapAPI,
+      libraries: ['geometry', 'places']
+    })
   ],
   providers: [NotifierService,LoginGuard],
   bootstrap: [AppComponent]
