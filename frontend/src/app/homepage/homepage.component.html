@@ -78,67 +78,84 @@
                             <div class="card-header row m-0 justify-content-between py-3">
                                 <p class="mt-auto mb-auto p-0 text-uppercase text-primary">
                                     <i class="fas fa-user"></i> 
-                                    Your Name
+                                    {{userName}}
                                 </p>
-                                <div class="button-container">
-                                    <button class="btn btn-success btn-icon-split status-button mr-1 mb-1">
+                                <div *ngIf="loaded && isDonorRegistered" class="button-container">
+                                    <button [disabled]="canDonate" (click)="changeStatus('Cannot Donate')"  class="btn btn-success btn-icon-split status-button mr-1 mb-1">
                                         <span class="icon text-white-50"><i class="fas fa-thumbs-up"></i></span>
                                         <span class="text">Can Donate</span>
                                     </button>
-                                    <button class="btn disabled btn-danger btn-icon-split status-button mr-1 mb-1 ">
+                                    <button [disabled]="!canDonate"(click)="changeStatus('Can Donate')" class="btn btn-danger btn-icon-split status-button mr-1 mb-1 ">
                                         <span class="icon text-white-50"><i class="fas fa-thumbs-down"></i></span>
                                         <span class="text">Cannot Donate</span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div *ngIf="!loaded" class="card-body text-center">
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>                       
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="loaded && !isDonorRegistered" class="card-body text-center">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2 text-center">
+                                        <i class="fas fa-award fa-2x text-primary "></i>
+                                        <div class="text-xs font-weight-bold text-muted text-uppercase mb-1">Donor Registration</div>
+                                        <a routerLink="/registration/donor" class="h5 mb-0 text-decoration-none text-primary">Register</a>                           
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="loaded && isDonorRegistered" class="card-body">
                                 <table>
                                     <tr>
                                         <td><h6><span class="text-uppercase"><b>Current Status</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td>Can Donate</td>
+                                        <td> 
+                                            <i *ngIf="canDonate" class="fa fa-check text-success"></i>
+                                            <i *ngIf="!canDonate" class="fa fa-times text-danger"></i>
+                                            {{donorDetails.status}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><h6><span class="text-uppercase"><b>Blood Group</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td>Group</td>
+                                        <td>{{donorDetails.blood_group}}</td>
                                     </tr>
                                     <tr>
-                                        <td><h6><span class="text-uppercase"><b>Current Location</b></span></h6></td>
+                                        <td><h6><span class="text-uppercase"><b>City</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td>Location</td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>Permanent Location</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>Location</td>
+                                        <td>
+                                            <input #city class="mr-2 city-input" [disabled]="cityEditDisabled" type="text" value="{{donorDetails.city}}">
+                                        </td>
+                                        <td>
+                                            <i (click)="activateCityEdit()" *ngIf="cityEditActivated" class="fa fa-pencil-alt text-danger"></i>
+                                            <i (click)="updateCity(city.value)" *ngIf="cityChangeActivated" class="fa fa-save text-success"></i>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><h6><span class="text-uppercase"><b>Date of Birth</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td>dd/mm/yyyy</td>
+                                        <td>{{donorDetails.date_of_birth}}</td>
                                     </tr>
                                     <tr>
                                         <td><h6><span class="text-uppercase"><b>Phone</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td>+91-XXXXXXXXXX</td>
+                                        <td>{{donorDetails.phone}}</td>
                                     </tr>
                                     <tr>
                                         <td><h6><span class="text-uppercase"><b>Email</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td>email@provider.com</td>
+                                        <td>{{donorDetails.email}}</td>
                                     </tr>
-                                </table><hr>
-                                <h6><span class="text-uppercase mt-2"><b>Permanent Address</b></span></h6>
-                                <div class="address">
-                                    <span>Address Line 1</span>
-                                    <span>Address Line 2</span>
-                                    <span>City</span>
-                                    <span>State</span>
-                                    <span>Pin</span>
-                                </div>
+                                </table>
 
-
+                                <app-notifier></app-notifier>
                             </div>
                         </div>                      
                     </div>

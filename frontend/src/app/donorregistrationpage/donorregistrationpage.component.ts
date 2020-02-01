@@ -33,7 +33,7 @@ export class DonorregistrationpageComponent implements OnInit {
           date_of_birth  : dob,
           blood_group : bloodgroup,
           phone : phone,
-          ciry : city,
+          city : city,
           uid : this.uid,
           status : 'Can Donate'
         }).then(()=>{

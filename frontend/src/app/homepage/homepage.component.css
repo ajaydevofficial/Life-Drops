@@ -21,3 +21,12 @@ ul{
 td{
     width: 33%;
 }
+.city-input{
+    border: none;
+    outline:none;
+}
+.city-input:disabled{
+    border: none;
+    outline:none;
+    background: none;
+}
