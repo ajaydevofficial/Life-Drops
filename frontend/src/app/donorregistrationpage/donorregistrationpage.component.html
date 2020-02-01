@@ -1,6 +1,73 @@
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container">
+                <div class="header text-center">
+                    <i class="fas fa-award text-gray-300 header-icon"></i>
+                    <h4 class="mt-2 text-gray-300">Donor Registration</h4>
+                </div>
 
-<div class="container">
 
-    
-</div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        
+                        <app-notifier></app-notifier>
 
+                        <div class="card shadow mb-4 mx-auto">
+                            <div class="card-body">
+                                <div class="donor">
+                                    <div class="form-group">
+                                        <label for="patient">Full Name</label>
+                                        <input [disabled]="disabledValue" required name="patient" type="text" class="form-control" value={{userName}}>      
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bystander">Email</label>
+                                        <input [disabled]="disabledValue" required name="bystander" type="email" class="form-control" value="{{userEmail}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="area">Date of BIrth</label>
+                                        <input #dob name="dob" required type="date" class="form-control">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="place">Blood Group</label>
+                                        <select #bloodgroup class="form-control" name="blood-group" id="blood-group">
+                                            <option hidden selected disabled>Select Blood Group</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="place">Phone</label>
+                                        <input #phone name="place" required type="text" class="form-control"  placeholder="Phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="place">City/District</label>
+                                        <input #city name="place" required type="text" class="form-control"  placeholder="City District">
+                                    </div>
+                                    <div class="form-group">
+                                        <small>
+                                            Note:
+                                            <ul>
+                                                <li>Donor registration can only be done once, make sure that all details are correct</li>
+                                                <li>By registering you allow us to send sms/email notificatios.</li>
+                                            </ul>
+                                        </small>
+                                    </div>
+                                    <button (click)="registerDonor(dob.value,bloodgroup.value,phone.value,city.value)" class="btn btn-success btn-block">
+                                      <i class="fas fa-award text-white-50"></i> Resgister as Donor
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
