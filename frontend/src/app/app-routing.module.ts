@@ -1,3 +1,4 @@
+import { LoginGuard } from './route.guard';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { CreaterequirementpageComponent } from './createrequirementpage/createrequirementpage.component';
@@ -18,16 +19,16 @@ const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot([
-    {path:'',component:HomepageComponent},
+    {path:'',component:HomepageComponent,canActivate:[LoginGuard]},
     {path:'login',component:LoginpageComponent},
-    {path:'blood-donation-event',component:DonationeventpageComponent},
-    {path:'urgent-requirement',component:UrgentrequirementpageComponent},
-    {path:'requirement',component:RequirementpageComponent},
-    {path:'registration/donor',component:DonorregistrationpageComponent},
-    {path:'notifications',component:NotificationpageComponent},
-    {path:'create/blood-donation-event',component:CreatedonationeventpageComponent},
-    {path:'create/urgent-requirement',component:CreateurgentrequirementpageComponent},
-    {path:'create/requirement',component:CreaterequirementpageComponent},
+    {path:'blood-donation-event',component:DonationeventpageComponent,canActivate:[LoginGuard]},
+    {path:'urgent-requirement',component:UrgentrequirementpageComponent,canActivate:[LoginGuard]},
+    {path:'requirement',component:RequirementpageComponent,canActivate:[LoginGuard]},
+    {path:'registration/donor',component:DonorregistrationpageComponent,canActivate:[LoginGuard]},
+    {path:'notifications',component:NotificationpageComponent,canActivate:[LoginGuard]},
+    {path:'create/blood-donation-event',component:CreatedonationeventpageComponent,canActivate:[LoginGuard]},
+    {path:'create/urgent-requirement',component:CreateurgentrequirementpageComponent,canActivate:[LoginGuard]},
+    {path:'create/requirement',component:CreaterequirementpageComponent,canActivate:[LoginGuard]},
     {path:'about',component:AboutpageComponent},
     {path:'contact',component:ContactpageComponent},
   ])],

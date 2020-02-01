@@ -24,6 +24,7 @@ import { NotifierComponent } from './notifier/notifier.component';
 
 import { AngularFireModule } from  '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { LoginGuard } from './route.guard';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [NotifierService],
+  providers: [NotifierService,LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
