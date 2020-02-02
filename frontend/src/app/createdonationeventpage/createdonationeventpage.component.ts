@@ -79,6 +79,10 @@ export class CreatedonationeventpageComponent implements OnInit {
       status : 'Verification Pending'
     }).then(()=>{
       this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
+      let inputs = document.getElementsByTagName('input');
+      for (var i=0;i<inputs.length;i++) {
+        inputs[i].value='';
+      }
     }).catch(error=>{
       this.notifier.display('error','Something went wrong')
     })
