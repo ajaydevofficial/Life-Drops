@@ -2,29 +2,40 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <div class="container">
-                <div class="header text-center">
-                    <i class="fas fa-tint top text-gray-300 header-icon"></i>
-                    <h4 class="mt-2 text-gray-300">Create Blood Requirement</h4>
-                </div>
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="card shadow mb-4 mx-auto">
                             <div class="card-body">
-                                <form class="user">
-                                    <div id="map"></div>
+                                <div class="user">
+                                    <input id="address" type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Hospital Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" >
+                                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                        (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                    </agm-map>
+                                    <div class="form-group mt-3">
+                                        <small>Note: Search for the location and if not found then search the area and move marker to the exact location</small>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="patient">Patient Name</label>
-                                            <input required name="patient" type="text" class="form-control" placeholder="Patient Name">
+                                            <label for="patient">Patient's Name</label>
+                                            <input #patient required name="patient" type="text" class="form-control" placeholder="Patient Name">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="doctor">Doctor Name</label>
-                                            <input required name="doctor" type="text" class="form-control" placeholder="Doctor Name">
-                                        </div>          
+                                            <label for="doctor">Doctor's Name</label>
+                                            <input #doctor required name="doctor" type="text" class="form-control" placeholder="Doctor Name">
+                                        </div>         
                                     </div>
                                     <div class="form-group">
+                                        <label for="bystander">Bystander's Name</label>
+                                        <input #bystander required name="bystander" type="text" class="form-control" placeholder="Bystander's Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bystander">Bystander's Phone</label>
+                                        <input #bystanderphone required name="bystander-phone" type="text" class="form-control" placeholder="Bystander's Phone">
+                                    </div> 
+                                    <div class="form-group">
                                         <label for="place">Blood Group</label>
-                                        <select class="form-control" name="blood-group" id="blood-group">
+                                        <select #bloodgroup class="form-control" name="blood-group" id="blood-group">
                                             <option hidden selected disabled>Select Blood Group</option>
                                             <option value="A+">A+</option>
                                             <option value="A-">A-</option>
@@ -37,26 +48,44 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="place">Quantity (in Units)</label>
+                                        <input #quantity name="place" required type="number" class="form-control"  placeholder="Quantity">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="place">Hospital Name</label>
-                                      <input name="place" required type="text" class="form-control"  placeholder="Hospital Name">
+                                        <input #hospital name="place" required type="text" class="form-control"  placeholder="Hospital Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="area">Area/Locality</label>
-                                        <input name="area" required type="text" class="form-control"  placeholder="Area">
+                                        <input #area name="area" required type="text" class="form-control"  placeholder="Area">
                                     </div>
                                     <div class="form-group">
                                         <label for="city">City/District</label>
-                                        <input name="city" required type="text" class="form-control"  placeholder="City/District">
+                                        <input #city name="city" required type="text" class="form-control"  placeholder="City/District">
                                     </div>
                                     <div class="form-group">
                                         <small>
-                                            Note : The requirements are validated by the admins before publishing. Make sure the event is a legitimate one before adding
+                                            Note:
+                                            <ul>
+                                                <li>The requirements are validated by the admins before publishing. Make sure the event is a legitimate one before adding</li>
+                                             </ul>
                                         </small>
                                     </div>
-                                    <button type="submit" (click)="setLocation()" class="btn btn-warning btn-block">
-                                      <i class="fas fa-plus text-white-50"></i> Create Requirement
+                                    <button (click)="newUrgentRequirement(
+                                        patient.value,
+                                        doctor.value,
+                                        bystander.value,
+                                        bystanderphone.value,
+                                        bloodgroup.value,
+                                        quantity.value,
+                                        hospital.value,
+                                        area.value,
+                                        city.value
+                                    )" class="btn btn-warning btn-block">
+                                      <i class="fas fa-plus text-white-50"></i> Create Blood Requirement
                                     </button>
-                                  </form>
+                                    <app-notifier></app-notifier>
+                                </div>
                             </div>
                         </div>
                     </div>
