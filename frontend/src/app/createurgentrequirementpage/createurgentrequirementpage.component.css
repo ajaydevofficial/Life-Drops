@@ -10,3 +10,19 @@
     height: 300px;
     margin: 10px 0;
 }
+agm-map {
+    height: 300px;
+    margin-bottom: 10px;
+}
+.agm-map-container-inner{
+    margin-bottom: 1rem;
+}
+#address{
+    width: 95%;
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    top:45px;
+    box-shadow: 1px 1px 10px #AcAcAc;
+}
