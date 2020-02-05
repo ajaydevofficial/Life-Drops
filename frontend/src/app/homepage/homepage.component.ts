@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { NotifierService } from '../shared/notifier.service';
 import { stringify } from 'querystring';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -32,7 +33,9 @@ export class HomepageComponent implements OnInit {
     }
   }
 
-  constructor(private notifier: NotifierService) { }
+  constructor(private notifier: NotifierService,private router:Router) { 
+
+  }
 
   ngOnInit() {
     firebase.database().ref('donors/' + this.uid).on('value',(snap)=>{

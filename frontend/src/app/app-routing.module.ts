@@ -19,8 +19,8 @@ const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot([
-    {path:'',component:HomepageComponent,canActivate:[LoginGuard]},
-    {path:'login',component:LoginpageComponent},
+    {path:'dashboard',component:HomepageComponent,canActivate:[LoginGuard]},
+    {path:'',component:LoginpageComponent},
     {path:'blood-donation-event',component:DonationeventpageComponent,canActivate:[LoginGuard]},
     {path:'urgent-requirement',component:UrgentrequirementpageComponent,canActivate:[LoginGuard]},
     {path:'requirement',component:RequirementpageComponent,canActivate:[LoginGuard]},

@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
 
   isLogin(){
-    if(this.router.url=='/login'){
+    if(this.router.url=='/'){
       return true
     }
     else{
@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
   logout(){
     firebase.auth().signOut()
     localStorage.clear()
-    this.router.navigate(['/login'])
+    this.router.navigate(['/'])
   }
 
 }
