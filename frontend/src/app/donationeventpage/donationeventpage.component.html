@@ -21,7 +21,7 @@
     <div *ngIf="donationEventList.length!=0" class="row">
         <div *ngFor="let item of donationEventList" class="col-lg-3">
             <div class="card shadow mb-4 mt-2">
-                <agm-map [latitude]="item.location.lat" [longitude]="item.location.lng" [zoom]="15" >
+                <agm-map [latitude]="item.location.lat" [longitude]="item.location.lng" [zoom]="15" [zoomControl]="true" [scrollwheel]="false">
                     <agm-marker [latitude]="item.location.lat" [longitude]="item.location.lng" [markerDraggable]="false"></agm-marker>
                 </agm-map>
                 <div class="card-body">

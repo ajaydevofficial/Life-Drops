@@ -1,12 +1,29 @@
 .card-body a{
     width: 100%;
 }
-.btn{
-    border-radius: 0 0 5px 5px;
-}
 .card-header{
-    background-color: #4e73df !important;
+    border-radius: 0 0 5px 5px;
 }
 .badge{
     border-radius: 2px;
+}
+td{
+    margin-right: 1rem;
+}
+.direction_button{
+    background-color: #1cc88a !important;
+    border-radius: 0 0 5px 0 ;
+}
+.flex{
+    display: flex;
+}
+.flex-container{
+    width: 50%;
+}
+.flex-container a{
+    width: 100%;
+}
+.button_call{
+    background-color: #4e73df !important;
+    border-radius: 0 0 0 5px ;
 }
