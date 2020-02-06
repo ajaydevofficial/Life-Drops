@@ -3,19 +3,77 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h3 class="h6 mb-0 text-gray-800 text-uppercase"><i class="fas fa-tint"></i> Blood Requirements in your city</h3>
     </div>
+    <div *ngIf="!urgentRequirementsList" class="card-body text-center">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>                       
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div *ngIf="urgentRequirementsList.length==0" class="card-body text-center">
+        <i class="fa fa-flag display-1"></i><br>
+        <p>No urgent requirements registered in your city</p>
+    </div>
     <div class="row">
-        <div *ngFor="let item of urgentRequirementsList" class="col-lg-3">
+        <div *ngFor="let item of urgentRequirementsList" class="col-lg-4">
             <div class="card shadow mb-4 mt-2">
                 <div class="card-body">
-                    <p class="text-muted m-0 p-0"><small><i class="fas fa-map-marker-alt"></i> Hospital Name, Area, City </small></p>
-                    <p class="text-muted m-0 p-0"><small><i class="fas fa-calendar-alt"></i> dd/mm/yyyy</small></p>
-                    <p class="text-muted m-0 p-0"><small>Patient Name</small></p>
-                    <p class="text-muted m-0 p-0"><small>Doctor Name</small></p>
-                    <p class="text-muted m-0 p-0"><small>Blood Group</small></p>
-                    <span class="badge badge-success mr-1"><i class="fas fa-user-md"></i> Open</span>
-                    <span class="badge badge-danger mr-1"><i class="fas fa-hourglass-end"></i> Closed</span>                 
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-user"></i></td>
+                                <td><b>Patient</b></td>
+                                <td>:</td>
+                                <td>{{item.patient_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-map-marker-alt"></i></td>
+                                <td><b>Hospital</b></td>
+                                <td>:</td>
+                                <td>{{item.hospital}}, {{item.area}}, {{item.city}}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-hands-helping"></i></td>
+                                <td><b>Bystander</b></td>
+                                <td>:</td>
+                                <td>{{item.bystander_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-stethoscope"></i></td>
+                                <td><b>Doctor</b></td>
+                                <td>:</td>
+                                <td>{{item.doctor_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-tint"></i></td>
+                                <td><b>Group</b></td>
+                                <td>:</td>
+                                <td>{{item.blood_group}}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-hourglass-end"></i></td>
+                                <td><b>Status</b></td>
+                                <td>:</td>
+                                <td>
+                                    <span *ngIf="item.status==='open'" class="badge badge-success mr-1">Open</span>
+                                    <span *ngIf="item.status==='closed'" class="badge badge-danger mr-1">Closed</span> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                
                 </div>
-                <a href="tel:00000000000" class="card-header btn btn-primary"><i class="fas fa-phone-alt"></i> 0000000000</a> 
+                <div class="flex">
+                    <div class="flex-container">
+                        <a href="tel:{{item}}" class="card-header btn btn-primary button_call"><i class="fas fa-phone-alt"></i> Call Bystander</a> 
+                    </div>
+                    <div class="flex-container">
+                        <a href="{{item.directionLink}}" class="card-header btn btn-primary direction_button"><i class="fas fa-directions"></i> Open Map</a>
+                    </div> 
+                </div>
             </div>
         </div>
     </div>    

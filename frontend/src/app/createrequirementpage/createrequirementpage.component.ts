@@ -91,7 +91,8 @@ export class CreaterequirementpageComponent implements OnInit {
         lat : this.latitude,
         lng : this.longitude 
       },
-      status : 'Verification Pending'
+      verification : 'Verification Pending',
+      status : 'open'
     }).then(()=>{
       this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
       let inputs = document.getElementsByTagName('input');

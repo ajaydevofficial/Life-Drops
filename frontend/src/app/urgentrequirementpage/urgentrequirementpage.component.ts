@@ -8,19 +8,21 @@ import * as firebase from 'firebase';
 })
 export class UrgentrequirementpageComponent implements OnInit {
 
-  urgentRequirementsList = [1,2,3,4,5]
+  urgentRequirementsList;
   constructor() { }
 
   ngOnInit() {
     window.moveTo(0,0);
-    firebase.database().ref('blood-donation-events').on('value',(snap)=>{
+    firebase.database().ref('urgent-requirments').on('value',(snap)=>{
       this.urgentRequirementsList = []
       snap.forEach(element=>{
         var value = element.val()
         value['directionLink'] = "https://www.google.com/maps/place/" + element.val().location.lat + ',' + element.val().location.lng;
         this.urgentRequirementsList.push(value);
       })
+      console.log(this.urgentRequirementsList)
     })
+    
   }
 
 }
