@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 export class LoginGuard implements CanActivate{
 
     constructor(){
-        
+
     }
-    canActivate(): boolean {          
+    canActivate(): boolean {
         if(localStorage.getItem('loggedUser')){
             return true;
         }
@@ -17,4 +17,6 @@ export class LoginGuard implements CanActivate{
             return false;
         }
     }
+
 }
+

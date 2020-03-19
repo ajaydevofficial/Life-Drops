@@ -1,6 +1,6 @@
 import { AlreadyLoggedComponent } from './already-logged/already-logged.component';
 import { LoginComponent } from './admin/login/login.component';
-import { LoginGuard } from './route.guard';
+import { LoginGuard} from './route.guard';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { CreaterequirementpageComponent } from './createrequirementpage/createrequirementpage.component';
@@ -15,6 +15,7 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 
 const routes: Routes = [];
@@ -34,6 +35,7 @@ const routes: Routes = [];
     {path:'about',component:AboutpageComponent},
     {path:'contact',component:ContactpageComponent},
     {path:'admin/login',component:LoginComponent},
+    {path:'admin/dashboard',component:DashboardComponent,},
     {path:'already-logged',component:AlreadyLoggedComponent},
   ])],
   exports: [RouterModule]

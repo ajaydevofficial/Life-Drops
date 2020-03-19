@@ -10,9 +10,12 @@ import { Router } from '@angular/router';
 })
 export class LoginpageComponent implements OnInit {
 
-  constructor(private afAuth:AngularFireAuth,private router:Router) { 
+  constructor(private afAuth:AngularFireAuth,private router:Router) {
     if(localStorage.getItem('loggedUser')){
       this.router.navigate(['/dashboard'])
+    }
+    else if(localStorage.getItem('adminID')){
+      this.router.navigate(['admin/dashboard'])
     }
   }
 
@@ -27,7 +30,7 @@ export class LoginpageComponent implements OnInit {
         this.router.navigate(['/fakeredirect'])
       }
     })
-   
+
   }
 
 }

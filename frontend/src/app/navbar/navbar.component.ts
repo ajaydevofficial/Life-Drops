@@ -17,6 +17,15 @@ export class NavbarComponent implements OnInit {
     else{
       return false
     }
+
+  }
+  isAdmin(){
+    if(this.router.url.startsWith('/admin') && this.router.url!="/admin/login" ){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   get userName(){
@@ -32,6 +41,7 @@ export class NavbarComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {
+
   }
 
   logout(){

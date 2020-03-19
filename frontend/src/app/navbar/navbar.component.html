@@ -23,6 +23,10 @@
           </div>
         </li>
 
+        <li *ngIf="isAdmin()" class="nav-item row">
+          <button (click)="logout()" class="btn btn-white"><i class="fa fa-sign-out-alt"></i></button>
+        </li>
+
       </ul>
 
     </div>
