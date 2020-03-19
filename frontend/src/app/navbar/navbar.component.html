@@ -2,15 +2,17 @@
 
     <div class="container">
       <!-- Topbar Navbar -->
-      <a routerLink="/" class="my-auto h4 text-gray-600 text-decoration-none text-uppercase"><i class="fa fa-tint text-danger"></i> <b> Life Drops</b></a>
+      <a routerLink="/" class="my-auto h4 text-gray-600 text-decoration-none text-uppercase">
+        <img id="logo" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Flifedrops_logo_red.png?alt=media" alt="">
+      </a>
       <ul *ngIf="!isLogin()" class="navbar-nav ml-auto">
-  
-  
+
+
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{userName}}</span>
-            <img class="img-profile rounded-circle" [src]=photoURL>
+            <p class="m-0 mr-2 d-none d-lg-inline text-dark small"><b class="my-auto">{{userName}}</b></p>
+            <img *ngIf="photoURL" class="img-profile rounded-circle" [src]=photoURL>
           </a>
           <!-- Dropdown - User Information -->
           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -20,10 +22,10 @@
             </a>
           </div>
         </li>
-  
+
       </ul>
-  
+
     </div>
-    
+
 </nav>
 <!-- End of Topbar -->

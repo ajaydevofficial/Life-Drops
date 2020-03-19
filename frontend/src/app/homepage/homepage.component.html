@@ -29,7 +29,7 @@
                     <div class="col-md-4 display-grid">
                         <a routerLink="/create/urgent-requirement" class="btn raise-button shadow btn-danger  mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-bullhorn"></i></span>
-                            <span class="text text-white">Post an emergency requirement</span>
+                            <span class="text text-white">Post an urgent requirement</span>
                         </a>
                     </div>
                     <div class="col-md-4 display-grid">
@@ -50,20 +50,31 @@
                                 <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-exclamation-triangle"></i> Note</p>
                             </div>
                             <div class="card-body">
+                              <div class="text-center">
                                 <p class="text-muted m-0 p-0">The events raised by users will be validated by the admin before releasing the post</p>
+                                <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Freading.svg?alt=media" alt="">
+                              </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="card shadow mb-4 mt-2">
-                            <div class="card-header">
-                                <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-quote-right"></i> Tips</p>
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted m-0 p-0">The events raised by users will be validated by the admin before releasing the post</p>
-                            </div>
-                        </div>
-                    </div>
+                      <div class="card shadow mb-4 mt-2">
+                          <div class="card-header py-3">
+                              <p class="m-0 p-0 text-uppercase text-primary"><i class="fas fa-exclamation-triangle"></i> Blood donation Eligiblity</p>
+                          </div>
+                          <div class="card-body">
+                              <h6>In order to donate you must meet the requirements listed below.</h6>
+                              <small>Please note that this is not a complete list; other eligibility factors will apply.</small>
+                              <ul>
+                                  <li><i class="fas fa-check text-success"></i> Be in good health and feeling well</li>
+                                  <li><i class="fas fa-check text-success"></i> Be at least 18 years old and atmost 60</li>
+                                  <li><i class="fas fa-check text-success"></i> Weigh at least 50kg</li>
+                                  <li><i class="fas fa-check text-success"></i> Are not pregnant</li>
+                                  <li><i class="fas fa-check text-success"></i> Your last blood donation was 3 or more months earlier.</li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
                 </div>
 
                 <!--Health status-->
@@ -73,11 +84,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="card shadow mb-4">
                             <div class="card-header row m-0 justify-content-between py-3">
                                 <p class="mt-auto mb-auto p-0 text-uppercase text-primary">
-                                    <i class="fas fa-user"></i> 
+                                    <i class="fas fa-user"></i>
                                     {{userName}}
                                 </p>
                                 <div *ngIf="loaded && isDonorRegistered" class="button-container">
@@ -97,7 +108,7 @@
                                 </div>
                                 <div class="spinner-grow text-primary" role="status">
                                     <span class="sr-only">Loading...</span>
-                                </div>                       
+                                </div>
                                 <div class="spinner-grow text-primary" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
@@ -107,7 +118,7 @@
                                     <div class="col mr-2 text-center">
                                         <i class="fas fa-award fa-2x text-primary "></i>
                                         <div class="text-xs font-weight-bold text-muted text-uppercase mb-1">Donor Registration</div>
-                                        <a routerLink="/registration/donor" class="h5 mb-0 text-decoration-none text-primary">Register</a>                           
+                                        <a routerLink="/registration/donor" class="h5 mb-0 text-decoration-none text-primary">Register</a>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +127,7 @@
                                     <tr>
                                         <td><h6><span class="text-uppercase"><b>Current Status</b></span></h6></td>
                                         <td class="text-center"> : </td>
-                                        <td> 
+                                        <td>
                                             <i *ngIf="canDonate" class="fa fa-check text-success"></i>
                                             <i *ngIf="!canDonate" class="fa fa-times text-danger"></i>
                                             {{donorDetails.status}}
@@ -157,26 +168,21 @@
 
                                 <app-notifier></app-notifier>
                             </div>
-                        </div>                      
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <p class="m-0 p-0 text-uppercase text-primary"><i class="fas fa-exclamation-triangle"></i> Blood donation Eligiblity</p>
-                            </div>
-                            <div class="card-body">
-                                <h6>In order to donate you must meet the requirements listed below.</h6>
-                                <small>Please note that this is not a complete list; other eligibility factors will apply.</small>
-                                <ul>
-                                    <li><i class="fas fa-check text-success"></i> Be in good health and feeling well</li>
-                                    <li><i class="fas fa-check text-success"></i> Be at least 18 years old and atmost 60</li>
-                                    <li><i class="fas fa-check text-success"></i> Weigh at least 50kg</li>
-                                    <li><i class="fas fa-check text-success"></i> Are not pregnant</li>
-                                    <li><i class="fas fa-check text-success"></i> Your last blood donation was 3 or more months earlier.</li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                      <div class="card shadow mb-4">
+                          <div class="card-header">
+                              <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-quote-right"></i> Tips</p>
+                          </div>
+                          <div class="card-body">
+                              <div class="text-center">
+                                <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fcoffee.gif?alt=media" alt="">
+                                <p class="text-muted m-0 p-0">The events raised by users will be validated by the admin before releasing the post</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
 
                 <div class="row">
@@ -205,6 +211,6 @@
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
 </div>
 

@@ -30,3 +30,6 @@ td{
     outline:none;
     background: none;
 }
+.doodle{
+  max-width: 200px;
+}

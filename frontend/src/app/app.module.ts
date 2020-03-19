@@ -26,6 +26,9 @@ import { NotifierComponent } from './notifier/notifier.component';
 import { AngularFireModule } from  '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginGuard } from './route.guard';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { LoginComponent } from './admin/login/login.component';
+import { AlreadyLoggedComponent } from './already-logged/already-logged.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { LoginGuard } from './route.guard';
     CreatedonationeventpageComponent,
     AboutpageComponent,
     ContactpageComponent,
-    NotifierComponent
+    NotifierComponent,
+    DashboardComponent,
+    LoginComponent,
+    AlreadyLoggedComponent
   ],
   imports: [
     BrowserModule,

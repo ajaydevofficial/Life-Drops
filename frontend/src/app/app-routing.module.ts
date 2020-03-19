@@ -1,3 +1,5 @@
+import { AlreadyLoggedComponent } from './already-logged/already-logged.component';
+import { LoginComponent } from './admin/login/login.component';
 import { LoginGuard } from './route.guard';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
@@ -31,6 +33,8 @@ const routes: Routes = [];
     {path:'create/requirement',component:CreaterequirementpageComponent,canActivate:[LoginGuard]},
     {path:'about',component:AboutpageComponent},
     {path:'contact',component:ContactpageComponent},
+    {path:'admin/login',component:LoginComponent},
+    {path:'already-logged',component:AlreadyLoggedComponent},
   ])],
   exports: [RouterModule]
 })

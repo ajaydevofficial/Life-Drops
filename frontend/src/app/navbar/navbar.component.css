@@ -1,3 +1,7 @@
 .container{
     padding: 1.5rem;
-}   
+}
+
+#logo{
+  width: 100px;
+}
