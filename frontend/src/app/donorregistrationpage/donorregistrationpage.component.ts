@@ -25,28 +25,34 @@ export class DonorregistrationpageComponent implements OnInit {
   }
 
   registerDonor(dob,bloodgroup,phone,city){
-    firebase.database().ref('donors/' + this.uid).once('value',(snap)=>{
-      if(!snap.exists()){
-        firebase.database().ref('donors/' + this.uid ).push({
-          full_name : this.userName,
-          email : this.userEmail,
-          date_of_birth  : dob,
-          blood_group : bloodgroup,
-          phone : phone,
-          city : city,
-          uid : this.uid,
-          status : 'Can Donate'
-        }).then(()=>{
-          this.notifier.display('success','You Have Succesfully Registered as Donor')
-          this.router.navigate(['/'])
-        }).catch(error=>{
-          this.notifier.display('error','Oops! Something went wrong, please try again')
-        }) 
-      }
-      else{
-        this.notifier.display('error','User already registered')
-      }
-    })
+    if(dob!='' && bloodgroup!="0" && phone!='' && city!=''){
+      firebase.database().ref('donors/' + this.uid).once('value',(snap)=>{
+        if(!snap.exists()){
+          firebase.database().ref('donors/' + this.uid ).push({
+            full_name : this.userName,
+            email : this.userEmail,
+            date_of_birth  : dob,
+            blood_group : bloodgroup,
+            phone : phone,
+            city : city,
+            uid : this.uid,
+            status : 'Can Donate'
+          }).then(()=>{
+            this.notifier.display('success','You Have Succesfully Registered as Donor')
+            this.router.navigate(['/'])
+          }).catch(error=>{
+            this.notifier.display('error','Oops! Something went wrong, please try again')
+          })
+        }
+        else{
+          this.notifier.display('error','User already registered')
+        }
+      })
+    }
+    else{
+      this.notifier.display('error','Please enter all the details')
+    }
+
   }
 
 }

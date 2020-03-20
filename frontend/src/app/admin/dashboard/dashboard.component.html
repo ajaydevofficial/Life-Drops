@@ -1,3 +1,38 @@
 <div class="container">
-  <p>dashboard works!</p>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Donors</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Blood Group</th>
+              <th>City</th>
+              <th>Date of birth</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of donorList | paginate: { itemsPerPage: 50, currentPage: page }">
+              <td>{{item.full_name}}</td>
+              <td>{{item.blood_group}}</td>
+              <td>{{item.city}}</td>
+              <td>{{item.dob}}</td>
+              <td>{{item.phone}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.status}}</td>
+            </tr>
+          </tbody>
+          <tfoot class="pagination justify-content-start">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

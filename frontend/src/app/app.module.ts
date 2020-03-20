@@ -22,6 +22,7 @@ import { CreatedonationeventpageComponent } from './createdonationeventpage/crea
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { NotifierComponent } from './notifier/notifier.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AngularFireModule } from  '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -63,7 +64,8 @@ import { Error404Component } from './error404/error404.component';
     AgmCoreModule.forRoot({
       apiKey:environment.googleMapAPI,
       libraries: ['geometry', 'places']
-    })
+    }),
+    NgxPaginationModule
   ],
   providers: [NotifierService,LoginGuard],
   bootstrap: [AppComponent]

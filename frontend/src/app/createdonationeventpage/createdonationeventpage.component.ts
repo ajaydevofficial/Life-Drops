@@ -47,7 +47,7 @@ export class CreatedonationeventpageComponent implements OnInit {
       });
     });
   }
-  
+
 
   setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -58,7 +58,7 @@ export class CreatedonationeventpageComponent implements OnInit {
       });
     }
   }
-  
+
   markerDragEnd($event: MouseEvent) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
@@ -66,26 +66,32 @@ export class CreatedonationeventpageComponent implements OnInit {
 
   newDonationEvent(from_date,to_date,place,area,city){
 
-    firebase.database().ref('blood-donation-events/').push({
-      from_date : from_date,
-      to_date : to_date,
-      place : place,
-      area : area,
-      city : city,
-      location : {
-        lat : this.latitude,
-        lng : this.longitude 
-      },
-      status : 'Verification Pending'
-    }).then(()=>{
-      this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
-      let inputs = document.getElementsByTagName('input');
-      for (var i=0;i<inputs.length;i++) {
-        inputs[i].value='';
-      }
-    }).catch(error=>{
-      this.notifier.display('error','Something went wrong')
-    })
+    if(from_date&&to_date&&place&&area&&city){
+      firebase.database().ref('blood-donation-events/').push({
+        from_date : from_date,
+        to_date : to_date,
+        place : place,
+        area : area,
+        city : city,
+        location : {
+          lat : this.latitude,
+          lng : this.longitude
+        },
+        status : 'Verification Pending'
+      }).then(()=>{
+        this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
+        let inputs = document.getElementsByTagName('input');
+        for (var i=0;i<inputs.length;i++) {
+          inputs[i].value='';
+        }
+      }).catch(error=>{
+        this.notifier.display('error','Something went wrong')
+      })
+    }
+    else{
+      this.notifier.display('error','Please fill all the details')
+    }
+
   }
 
 }

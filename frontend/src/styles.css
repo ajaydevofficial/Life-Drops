@@ -5,3 +5,18 @@ body{
 #wrapper #content-wrapper {
     background:none !important;
 }
+.ngx-pagination{
+  padding: 0 !important;
+  margin-top: 1rem;
+  display: flex;
+}
+.ngx-pagination .pagination-previous a::before, .ngx-pagination .pagination-previous.disabled::before {
+  content: '' !important;
+  display: none !important;
+  margin-right: 0.5rem;
+}
+.ngx-pagination .pagination-next a::after, .ngx-pagination .pagination-next.disabled::after {
+  content: '' !important;
+  display: none !important;
+  margin-left: 0.5rem;
+}
