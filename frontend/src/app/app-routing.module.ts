@@ -16,6 +16,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { Error404Component } from './error404/error404.component';
 
 
 const routes: Routes = [];
@@ -37,6 +38,8 @@ const routes: Routes = [];
     {path:'admin/login',component:LoginComponent},
     {path:'admin/dashboard',component:DashboardComponent,},
     {path:'already-logged',component:AlreadyLoggedComponent},
+    {path:'404',component:Error404Component},
+    {path:'**',redirectTo: '/404'}
   ])],
   exports: [RouterModule]
 })

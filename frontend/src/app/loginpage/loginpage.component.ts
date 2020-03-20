@@ -23,11 +23,11 @@ export class LoginpageComponent implements OnInit {
   }
 
   async login(){
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>{
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(async ()=>{
       if(firebase.auth().currentUser){
         window.location.reload()
         localStorage.setItem('loggedUser',JSON.stringify(firebase.auth().currentUser))
-        this.router.navigate(['/fakeredirect'])
+        await this.router.navigate(['/dashboard'])
       }
     })
 

@@ -5,6 +5,7 @@
       <a routerLink="/" class="my-auto h4 text-gray-600 text-decoration-none text-uppercase">
         <img id="logo" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Flifedrops_logo_red.png?alt=media" alt="">
       </a>
+      <span *ngIf="isAdmin()" class="card bg-primary text-white small p-1 ml-2">Admin</span>
       <ul *ngIf="!isLogin()" class="navbar-nav ml-auto">
 
 

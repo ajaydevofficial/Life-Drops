@@ -29,6 +29,7 @@ import { LoginGuard } from './route.guard';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { LoginComponent } from './admin/login/login.component';
 import { AlreadyLoggedComponent } from './already-logged/already-logged.component';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AlreadyLoggedComponent } from './already-logged/already-logged.componen
     NotifierComponent,
     DashboardComponent,
     LoginComponent,
-    AlreadyLoggedComponent
+    AlreadyLoggedComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
