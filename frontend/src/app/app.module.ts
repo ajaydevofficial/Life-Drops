@@ -3,6 +3,9 @@ import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
+import { ExportAsModule } from 'ngx-export-as';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,7 +68,10 @@ import { Error404Component } from './error404/error404.component';
       apiKey:environment.googleMapAPI,
       libraries: ['geometry', 'places']
     }),
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    FormsModule,
+    ExportAsModule
   ],
   providers: [NotifierService,LoginGuard],
   bootstrap: [AppComponent]

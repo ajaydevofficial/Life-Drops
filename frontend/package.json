@@ -25,6 +25,8 @@
     "firebase": "^7.6.1",
     "firebase-tools": "^7.12.1",
     "location-picker": "^1.1.1",
+    "ng2-search-filter": "^0.5.1",
+    "ngx-export-as": "^1.4.0",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
