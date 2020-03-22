@@ -38,9 +38,41 @@ export class NavbarComponent implements OnInit {
       return JSON.parse(localStorage.getItem('loggedUser')).photoURL
   }
 
-  constructor(private router:Router) { }
+  constructor(private router:Router) {
+
+  }
 
   ngOnInit() {
+
+   firebase.database().ref('donors').on('value',(snap)=>{
+    snap.forEach(element=>{
+      var value = element
+      value.forEach((el) => {
+        var elementVal = el.val();
+        if(!elementVal.statusUpdateTime){
+          firebase.database().ref('donors/'+ elementVal.uid + '/' + el.key).update(
+            {
+              statusUpdateTime: new Date()
+            }
+          )
+
+        }
+        if(elementVal.status == 'Cannot Donate'){
+          if(elementVal.statusUpdateTime){
+            var dateObject = new Date(elementVal.statusUpdateTime);
+            var currentDate = new Date();
+            if(this.monthDiff(dateObject,currentDate)>=3){
+              firebase.database().ref('donors/'+ elementVal.uid + '/' + el.key).update(
+                {
+                  status: 'Can Donate'
+                }
+              )
+            }
+          }
+        }
+      });
+    })
+  })
 
   }
 
@@ -48,6 +80,14 @@ export class NavbarComponent implements OnInit {
     firebase.auth().signOut()
     localStorage.clear()
     this.router.navigate(['/'])
+  }
+
+  monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth() + 1;
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
   }
 
 }

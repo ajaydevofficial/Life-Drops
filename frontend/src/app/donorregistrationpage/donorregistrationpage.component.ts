@@ -25,6 +25,7 @@ export class DonorregistrationpageComponent implements OnInit {
   }
 
   registerDonor(dob,bloodgroup,phone,city){
+    var today = new Date();
     if(dob!='' && bloodgroup!="0" && phone!='' && city!=''){
       firebase.database().ref('donors/' + this.uid).once('value',(snap)=>{
         if(!snap.exists()){
@@ -36,7 +37,8 @@ export class DonorregistrationpageComponent implements OnInit {
             phone : phone,
             city : city,
             uid : this.uid,
-            status : 'Can Donate'
+            status : 'Can Donate',
+            statusUpdateTime : new Date()
           }).then(()=>{
             this.notifier.display('success','You Have Succesfully Registered as Donor')
             this.router.navigate(['/'])
