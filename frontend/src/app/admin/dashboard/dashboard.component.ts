@@ -9,14 +9,21 @@ import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 })
 export class DashboardComponent implements OnInit {
 
-  page;
-  donorList;
-  donorSearchText;
+  pageCan;
+  pageCannot;
+  donorCanList;
+  donorCannotList;
+  donorCanSearchText;
+  donorCannotSearchText;
   constructor(private router:Router,private exportAsService: ExportAsService) { }
 
-  exportAsConfig: ExportAsConfig = {
+  exportAsConfigOfCanDonate: ExportAsConfig = {
     type: 'xlsx', // the type you want to download
-    elementId: 'donorstable', // the id of html/table element
+    elementId: 'donorscantable', // the id of html/table element
+  }
+  exportAsConfigOfCannotDonate: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementId: 'donorscannottable', // the id of html/table element
   }
 
   ngOnInit() {
@@ -26,21 +33,37 @@ export class DashboardComponent implements OnInit {
     }
 
     firebase.database().ref('donors').on('value',(snap)=>{
-      this.donorList = []
+      this.donorCanList = [];this.donorCannotList = [];
       snap.forEach(element=>{
         var value = element
         value.forEach((el) => {
           var elementVal = el.val();
           elementVal['donorKey'] = el.key;
-          this.donorList.push(elementVal);
+          if(elementVal.status == 'Can Donate'){
+            this.donorCanList.push(elementVal);
+          }
+          else{
+            this.donorCannotList.push(elementVal);
+          }
+
         });
       })
-      console.log(this.donorList)
-    })
+      console.log(this.donorCanList,this.donorCannotList)
+    });
+
+
+
   }
 
-  exportDonorsList() {
-    this.exportAsService.save(this.exportAsConfig, 'Donors List').subscribe(() => {});
+  exportCanDonorsList() {
+    this.exportAsService.save(this.exportAsConfigOfCanDonate, 'Donors List Eligible').subscribe(() => {});
+  }
+  exportCannotDonorsList() {
+    this.exportAsService.save(this.exportAsConfigOfCannotDonate, 'Donors List Ineligible').subscribe(() => {});
+  }
+
+  deleteDonor(uid){
+    firebase.database().ref('donors/' + uid).remove();
   }
 
 
