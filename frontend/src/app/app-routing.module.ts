@@ -17,6 +17,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { Error404Component } from './error404/error404.component';
+import { DonationEventComponent } from './admin/donation-event/donation-event.component';
 
 
 const routes: Routes = [];
@@ -37,6 +38,7 @@ const routes: Routes = [];
     {path:'contact',component:ContactpageComponent},
     {path:'admin/login',component:LoginComponent},
     {path:'admin/dashboard',component:DashboardComponent,},
+    {path:'admin/blood-donation-events',component:DonationEventComponent},
     {path:'already-logged',component:AlreadyLoggedComponent},
     {path:'404',component:Error404Component},
     {path:'**',redirectTo: '/404'}

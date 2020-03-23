@@ -34,6 +34,9 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { LoginComponent } from './admin/login/login.component';
 import { AlreadyLoggedComponent } from './already-logged/already-logged.component';
 import { Error404Component } from './error404/error404.component';
+import { DonationEventComponent } from './admin/donation-event/donation-event.component';
+import { UrgentRequirementComponent } from './admin/urgent-requirement/urgent-requirement.component';
+import { RequirementComponent } from './admin/requirement/requirement.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { Error404Component } from './error404/error404.component';
     DashboardComponent,
     LoginComponent,
     AlreadyLoggedComponent,
-    Error404Component
+    Error404Component,
+    DonationEventComponent,
+    UrgentRequirementComponent,
+    RequirementComponent
   ],
   imports: [
     BrowserModule,

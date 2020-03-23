@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-header row m-0 justify-content-between py-3">
+      <h6 class="my-auto font-weight-bold text-primary"><i class="fa fa-award text-danger"></i> Ineligible Donors</h6>
+      <button *ngIf="donationEventLisVerified && donationEventListVerified.length!=0" (click)="exportCannotDonorsList()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+    </div>
+    <div *ngIf="!donorCannotList" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="donationEventListVerified && donationEventListVerified.length==0" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5">No data here</p>
+      <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
+    </div>
+    <div *ngIf="donationEventListVerified && donationEventListVerified.length!=0" class="card-body">
+      <form class="my-2">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="donorCannotSearchText">
+      </form>
+      <div class="table-responsive">
+        <table id="donationEventsVerified" class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Blood Group</th>
+              <th>City</th>
+              <th>Date of birth</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of donorCannotList | paginate: { id: 'pageCannotControl', itemsPerPage: 15, currentPage: pageCannot } | filter: donorCannotSearchText">
+              <td>{{item.full_name}}</td>
+              <td>{{item.blood_group}}</td>
+              <td>{{item.city}}</td>
+              <td>{{item.date_of_birth}}</td>
+              <td>{{item.phone}}</td>
+              <td>{{item.email}}</td>
+              <td [ngClass]="{'bg-success': item.status ==='Can Donate', 'bg-danger': item.status  ==='Cannot Donate'}" class="text-white"><b>{{item.status}}</b></td>
+              <td class="text-center"><a href="tel:{{item.phone}}" class="btn btn-default"><i class="fa fa-phone-alt text-success"></i></a></td>
+              <td class="text-center"><button (click)="deleteDonor(item.uid)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination justify-content-end">
+        <pagination-controls id="pageCannotControl" (pageChange)="pageCannot = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
