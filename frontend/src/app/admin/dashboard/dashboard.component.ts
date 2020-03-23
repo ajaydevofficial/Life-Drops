@@ -11,10 +11,16 @@ export class DashboardComponent implements OnInit {
 
   pageCan;
   pageCannot;
+
+
   donorCanList;
   donorCannotList;
+
   donorCanSearchText;
   donorCannotSearchText;
+
+
+
   constructor(private router:Router,private exportAsService: ExportAsService) { }
 
   exportAsConfigOfCanDonate: ExportAsConfig = {
@@ -48,9 +54,7 @@ export class DashboardComponent implements OnInit {
 
         });
       })
-      console.log(this.donorCanList,this.donorCannotList)
     });
-
 
 
   }
