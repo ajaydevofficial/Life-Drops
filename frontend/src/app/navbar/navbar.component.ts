@@ -19,6 +19,14 @@ export class NavbarComponent implements OnInit {
     }
 
   }
+  isUserAdmin(){
+    if(localStorage.getItem('adminID')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
   isAdmin(){
     if(this.router.url.startsWith('/admin') && this.router.url!="/admin/login" ){
       return true;

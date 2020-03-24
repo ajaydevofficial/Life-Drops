@@ -5,18 +5,18 @@
       <a routerLink="/" class="my-auto h4 text-gray-600 text-decoration-none text-uppercase">
         <img id="logo" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Flifedrops_logo_red.png?alt=media" alt="">
       </a>
-      <span *ngIf="isAdmin()" class="card bg-primary text-white small p-1 ml-2">Admin</span>
+      <a routerLink="/admin/dashboard" *ngIf="isAdmin() || isUserAdmin()" class="card bg-primary text-white small p-1 ml-2">Admin</a>
       <ul *ngIf="!isLogin()" class="navbar-nav ml-auto">
 
 
         <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
+        <li *ngIf="!isUserAdmin()" class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <p class="m-0 mr-2 d-none d-lg-inline text-dark small"><b class="my-auto">{{userName}}</b></p>
             <img *ngIf="photoURL" class="img-profile rounded-circle" [src]=photoURL>
           </a>
           <!-- Dropdown - User Information -->
-          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+          <div *ngIf="!isUserAdmin()" class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
             <a (click)="logout()" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
               Logout
@@ -24,7 +24,7 @@
           </div>
         </li>
 
-        <li *ngIf="isAdmin()" class="nav-item row">
+        <li *ngIf="isAdmin() || isUserAdmin()" class="nav-item row">
           <button (click)="logout()" class="btn btn-white"><i class="fa fa-sign-out-alt"></i></button>
         </li>
 

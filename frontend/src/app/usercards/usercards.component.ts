@@ -10,7 +10,7 @@ export class UsercardsComponent implements OnInit {
 
   loaded:boolean = false;
   isDonorRegistered:boolean;
-  uid = JSON.parse(localStorage.getItem('loggedUser')).uid
+  uid;
   eventCount;
   urgentRequirementCount;
   requirementCount;
@@ -18,6 +18,8 @@ export class UsercardsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+
     firebase.database().ref('blood-donation-events/').on('value',(snap)=>{
       this.eventCount = snap.numChildren()
     });
@@ -26,11 +28,25 @@ export class UsercardsComponent implements OnInit {
     });
     firebase.database().ref('blood-requirments/').on('value',(snap)=>{
       this.requirementCount = snap.numChildren()
-    });
-    firebase.database().ref('donors/' + this.uid).on('value',(snap)=>{
+      this.loaded = true;
+    })
+
+    if(localStorage.getItem('loggedUser')){
+      this.uid=JSON.parse(localStorage.getItem('loggedUser')).uid;
+      firebase.database().ref('donors/' + this.uid).on('value',(snap)=>{
         this.isDonorRegistered = snap.exists();
         this.loaded = true;
-    });
+      });
+    }
+  }
+
+  isUserAdmin(){
+    if(localStorage.getItem('adminID')){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 

@@ -1,3 +1,5 @@
+import { RequirementComponent } from './admin/requirement/requirement.component';
+import { UrgentRequirementComponent } from './admin/urgent-requirement/urgent-requirement.component';
 import { AlreadyLoggedComponent } from './already-logged/already-logged.component';
 import { LoginComponent } from './admin/login/login.component';
 import { LoginGuard} from './route.guard';
@@ -36,10 +38,12 @@ const routes: Routes = [];
     {path:'create/requirement',component:CreaterequirementpageComponent,canActivate:[LoginGuard]},
     {path:'about',component:AboutpageComponent},
     {path:'contact',component:ContactpageComponent},
-    {path:'admin/login',component:LoginComponent},
-    {path:'admin/dashboard',component:DashboardComponent,},
-    {path:'admin/blood-donation-events',component:DonationEventComponent},
-    {path:'already-logged',component:AlreadyLoggedComponent},
+    {path:'admin',component:LoginComponent},
+    {path:'admin/dashboard',component:DashboardComponent,canActivate:[LoginGuard]},
+    {path:'admin/blood-donation-events',component:DonationEventComponent,canActivate:[LoginGuard]},
+    {path:'admin/urgent-requirement',component:UrgentRequirementComponent,canActivate:[LoginGuard]},
+    {path:'admin/requirement',component:RequirementComponent,canActivate:[LoginGuard]},
+    {path:'already-logged',component:AlreadyLoggedComponent,canActivate:[LoginGuard]},
     {path:'404',component:Error404Component},
     {path:'**',redirectTo: '/404'}
   ])],

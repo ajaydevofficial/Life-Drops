@@ -10,7 +10,7 @@ export class LoginGuard implements CanActivate{
 
     }
     canActivate(): boolean {
-        if(localStorage.getItem('loggedUser')){
+        if(localStorage.getItem('loggedUser')||localStorage.getItem('adminID')){
             return true;
         }
         else{

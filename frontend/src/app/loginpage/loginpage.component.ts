@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class LoginpageComponent implements OnInit {
 
   constructor(private afAuth:AngularFireAuth,private router:Router) {
-    if(localStorage.getItem('loggedUser')){
+    if(localStorage.getItem('loggedUser')||localStorage.getItem('adminID')){
       this.router.navigate(['/dashboard'])
     }
     else if(localStorage.getItem('adminID')){

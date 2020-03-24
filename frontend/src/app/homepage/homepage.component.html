@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div *ngIf="!isUserAdmin()" class="col-lg-6">
                         <div class="card shadow mb-4">
                             <div class="card-header row m-0 justify-content-between py-3">
                                 <p class="mt-auto mb-auto p-0 text-uppercase text-primary">

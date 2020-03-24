@@ -1,0 +1,155 @@
+<div class="row">
+
+
+  <!-- Earnings (Monthly) Card Example -->
+  <a *ngIf="loaded" routerLink="/admin/blood-donation-events" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+              <div class="col text-center">
+                  <i class="fas fa-hospital fa-2x text-success"></i>
+                  <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Blood donation events</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{eventCount}}</div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </a>
+
+  <a *ngIf="!loaded" routerLink="/admin/blood-donation-events" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                  <div class="col mr-2 text-center">
+                      <i class="fas fa-hospital fa-2x text-success"></i>
+                      <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Blood donation events</div>
+
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </a>
+
+
+  <a *ngIf="loaded" routerLink="/admin/urgent-requirement" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+              <div class="col mr-2 text-center">
+                  <i class="fas fa-exclamation fa-2x text-danger"></i>
+                  <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Urgent Blood Requirements</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{urgentRequirementCount}}</div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </a>
+
+  <a *ngIf="!loaded" routerLink="/admin/urgent-requirement" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                  <div class="col mr-2 text-center">
+                      <i class="fas fa-exclamation fa-2x text-danger"></i>
+                      <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Urgent Blood Requirements</div>
+
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </a>
+
+  <!--Blood requirements-->
+
+  <a *ngIf="loaded"  routerLink="/admin/requirement" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+              <div class="col mr-2 text-center">
+                  <i class="fas fa-tint fa-2x text-warning"></i>
+                  <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Blood Requirements</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{requirementCount}}</div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </a>
+
+  <a *ngIf="!loaded" routerLink="/admin/requirement" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                  <div class="col mr-2 text-center">
+                      <i class="fas fa-tint fa-2x text-warning"></i>
+                      <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Blood Requirements</div>
+
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </a>
+
+<!--Donor Registration-->
+
+  <a *ngIf="loaded && isDonorRegistered" routerLink="/admin/admin-list" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+              <div class="col mr-2 text-center">
+                  <i class="fas fa-award fa-2x text-primary "></i>
+                  <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Admins</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{requirementCount}}</div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </a>
+  <a *ngIf="!loaded " routerLink="/admin/admin-list" class="col mb-4">
+      <div class="card shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                  <div class="col mr-2 text-center">
+                      <i class="fas fa-award fa-2x text-primary "></i>
+                      <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Admins</div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-primary" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </a>
+</div>

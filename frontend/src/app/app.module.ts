@@ -37,6 +37,7 @@ import { Error404Component } from './error404/error404.component';
 import { DonationEventComponent } from './admin/donation-event/donation-event.component';
 import { UrgentRequirementComponent } from './admin/urgent-requirement/urgent-requirement.component';
 import { RequirementComponent } from './admin/requirement/requirement.component';
+import { CardsComponent } from './admin/cards/cards.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { RequirementComponent } from './admin/requirement/requirement.component'
     Error404Component,
     DonationEventComponent,
     UrgentRequirementComponent,
-    RequirementComponent
+    RequirementComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,
