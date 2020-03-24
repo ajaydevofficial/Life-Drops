@@ -27,3 +27,7 @@ td{
     background-color: #4e73df !important;
     border-radius: 0 0 0 5px ;
 }
+.card-body{
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -17,3 +17,6 @@ agm-map{
 .card{
     min-height: 95%;
 }
+.card-body{
+  overflow: hidden;
+}

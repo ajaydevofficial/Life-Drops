@@ -1,10 +1,11 @@
 <div class="container">
+
   <div class="card shadow mb-4">
     <div class="card-header row m-0 justify-content-between py-3">
-      <h6 class="my-auto font-weight-bold text-primary"><i class="fa fa-check text-success"></i> Verified Donation Events</h6>
-      <button *ngIf="donationEventListVerified && donationEventListVerified.length!=0" (click)="exportEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+      <h6 class="my-auto font-weight-bold text-primary"><i class="fa fa-times text-danger"></i> Unverified Donation Events</h6>
+      <button *ngIf="donationEventListUnverified && donationEventListUnverified.length!=0" (click)="exportEventListUnverified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
     </div>
-    <div *ngIf="!donationEventListVerified" class="card-body text-center">
+    <div *ngIf="!donationEventListUnverified" class="card-body text-center">
       <div class="spinner-grow text-primary" role="status">
         <span class="sr-only">Loading...</span>
       </div>
@@ -15,17 +16,73 @@
           <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div *ngIf="donationEventListVerified && donationEventListVerified.length==0" class="card-body text-center">
+    <div *ngIf="donationEventListUnverified && donationEventListUnverified.length==0" class="card-body text-center">
       <p class="h1"><b>Oops!</b></p>
       <p class="h5">No data here</p>
       <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
     </div>
-    <div *ngIf="donationEventListVerified && donationEventListVerified.length!=0" class="card-body">
+    <div *ngIf="donationEventListUnverified && donationEventListUnverified.length!=0" class="card-body">
       <form class="my-2">
-        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="donationEventSearchTextVerified">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="donationEventSearchTextUnverified">
       </form>
       <div class="table-responsive">
-        <table id="donationEventsVerified" class="table table-bordered" width="100%" cellspacing="0">
+        <table id="donationEventListUnverified" class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Address</th>
+              <th>Date from</th>
+              <th>Date to</th>
+              <th>Status</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of donationEventListUnverified | paginate: { id: 'pageUnverifiedControl', itemsPerPage: 15, currentPage: donationEventPageUnverified } | filter: donationEventSearchTextUnverified">
+              <td>{{item.place}}</td>
+              <td>{{item.area}},<br>{{item.city}}</td>
+              <td>{{item.from_date}}</td>
+              <td>{{item.to_date}}</td>
+              <td [ngClass]="{'text-success': item.status ==='Verified', 'text-danger': item.status  ==='Verification Pending'}" class="text-center"><b>{{item.status}}</b><br><button (click)="verifyEvent(item.key)" class="btn btn-light text-success"><small><i class="fa fa-check"></i> Verify</small></button></td>
+              <td class="text-center"><button (click)="deleteEvent(item.key)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination justify-content-end">
+        <pagination-controls id="pageUnverifiedControl" (pageChange)="donationEventPageUnverified = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header row m-0 justify-content-between py-3">
+      <h6 class="my-auto font-weight-bold text-primary">Verified Donation Events <span class="badge badge-success mr-1">Going on</span></h6>
+      <button *ngIf="ongoingDonationEvents && ongoingDonationEvents.length!=0" (click)="exportOngoingEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+    </div>
+    <div *ngIf="!ongoingDonationEvents" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="ongoingDonationEvents && ongoingDonationEvents.length==0" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5">No data here</p>
+      <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
+    </div>
+    <div *ngIf="ongoingDonationEvents && ongoingDonationEvents.length!=0" class="card-body">
+      <form class="my-2">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="ongoingDonationEventSearchTextVerified">
+      </form>
+      <div class="table-responsive">
+        <table id="ongoingDonationEvents" class="table table-bordered" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Place</th>
@@ -37,20 +94,129 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of donationEventListVerified | paginate: { id: 'pageVerifiedControl', itemsPerPage: 15, currentPage: donationEventPageVerified } | filter: donationEventSearchTextVerified">
+            <tr *ngFor="let item of ongoingDonationEvents | paginate: { id: 'pageVerifiedControlOngoing', itemsPerPage: 15, currentPage: ongoingDonationEventPage } | filter: ongoingDonationEventSearchTextVerified">
               <td>{{item.place}}</td>
               <td>{{item.area}},<br>{{item.city}}</td>
               <td>{{item.from_date}}</td>
               <td>{{item.to_date}}</td>
-              <td [ngClass]="{'bg-success': item.status ==='Verified', 'bg-danger': item.status  ==='Verification Pending'}" class="text-white"><b>{{item.status}}</b></td>
+              <td [ngClass]="{'text-success': item.status ==='Verified', 'text-danger': item.status  ==='Verification Pending'}" class="text-white text-center"><b><i class="fa fa-check"></i> {{item.status}}</b></td>
               <td class="text-center"><button (click)="deleteEvent(item.key)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="pagination justify-content-end">
-        <pagination-controls id="pageVerifiedControl" (pageChange)="pageCannot = $event"></pagination-controls>
+        <pagination-controls id="pageVerifiedControlOngoing" (pageChange)="ongoingDonationEventPage = $event"></pagination-controls>
       </div>
     </div>
   </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header row m-0 justify-content-between py-3">
+      <h6 class="my-auto font-weight-bold text-primary">Verified Donation Events <span class="badge badge-primary mr-1">Upcoming</span></h6>
+      <button *ngIf="upcomingDonationEvents && upcomingDonationEvents.length!=0" (click)="exportUpcomingEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+    </div>
+    <div *ngIf="!upcomingDonationEvents" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="upcomingDonationEvents && upcomingDonationEvents.length==0" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5">No data here</p>
+      <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
+    </div>
+    <div *ngIf="upcomingDonationEvents && upcomingDonationEvents.length!=0" class="card-body">
+      <form class="my-2">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="upcomingDonationEventSearchTextVerified">
+      </form>
+      <div class="table-responsive">
+        <table id="upcomingDonationEvents" class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Address</th>
+              <th>Date from</th>
+              <th>Date to</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of upcomingDonationEvents | paginate: { id: 'pageVerifiedControlUpcoming', itemsPerPage: 15, currentPage: upcomingDonationEventPage } | filter: upcomingDonationEventSearchTextVerified">
+              <td>{{item.place}}</td>
+              <td>{{item.area}},<br>{{item.city}}</td>
+              <td>{{item.from_date}}</td>
+              <td>{{item.to_date}}</td>
+              <td [ngClass]="{'text-success': item.status ==='Verified', 'text-danger': item.status  ==='Verification Pending'}" class="text-white text-center"><b><i class="fa fa-check"></i> {{item.status}}</b></td>
+              <td class="text-center"><button (click)="deleteEvent(item.key)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination justify-content-end">
+        <pagination-controls id="pageVerifiedControlUpcoming" (pageChange)="upcomingDonationEventPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header row m-0 justify-content-between py-3">
+      <h6 class="my-auto font-weight-bold text-primary">Donation Events <span class="badge badge-danger mr-1">Over</span></h6>
+      <button *ngIf="overDonationEvents && overDonationEvents.length!=0" (click)="exportOverEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+    </div>
+    <div *ngIf="!overDonationEvents" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="overDonationEvents && overDonationEvents.length==0" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5">No data here</p>
+      <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
+    </div>
+    <div *ngIf="overDonationEvents && overDonationEvents.length!=0" class="card-body">
+      <form class="my-2">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="overDonationEventSearchTextVerified">
+      </form>
+      <div class="table-responsive">
+        <table id="overDonationEvents" class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Address</th>
+              <th>Date from</th>
+              <th>Date to</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of overDonationEvents | paginate: { id: 'pageVerifiedControlOver', itemsPerPage: 15, currentPage: overDonationEventPage } | filter: overDonationEventSearchTextVerified">
+              <td>{{item.place}}</td>
+              <td>{{item.area}},<br>{{item.city}}</td>
+              <td>{{item.from_date}}</td>
+              <td>{{item.to_date}}</td>
+              <td class="text-center"><button (click)="deleteEvent(item.key)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination justify-content-end">
+        <pagination-controls id="pageVerifiedControlOver" (pageChange)="overDonationEventPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
 </div>

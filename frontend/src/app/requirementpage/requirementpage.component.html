@@ -9,7 +9,7 @@
         </div>
         <div class="spinner-grow text-primary" role="status">
             <span class="sr-only">Loading...</span>
-        </div>                       
+        </div>
         <div class="spinner-grow text-primary" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -34,7 +34,7 @@
                                 <td><i class="fas fa-map-marker-alt"></i></td>
                                 <td><b>Hospital</b></td>
                                 <td>:</td>
-                                <td>{{item.hospital}}, {{item.area}}, {{item.city}}</td>
+                                <td>{{item.hospital}},<br> {{item.area}}, <br>{{item.city}}</td>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-hands-helping"></i></td>
@@ -60,21 +60,21 @@
                                 <td>:</td>
                                 <td>
                                     <span *ngIf="item.status==='open'" class="badge badge-success mr-1">Open</span>
-                                    <span *ngIf="item.status==='closed'" class="badge badge-danger mr-1">Closed</span> 
+                                    <span *ngIf="item.status==='closed'" class="badge badge-danger mr-1">Closed</span>
                                 </td>
                             </tr>
                         </tbody>
-                    </table>                
+                    </table>
                 </div>
                 <div class="flex">
                     <div class="flex-container">
-                        <a href="tel:{{item.bystander_phone}}" class="card-header btn btn-primary button_call"><i class="fas fa-phone-alt"></i> Call Bystander</a> 
+                        <a href="tel:{{item.bystander_phone}}" class="card-header btn btn-primary button_call"><i class="fas fa-phone-alt"></i> Call Bystander</a>
                     </div>
                     <div class="flex-container">
                         <a href="{{item.directionLink}}" target="_blank" class="card-header btn btn-primary direction_button"><i class="fas fa-directions"></i> Open Map</a>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
