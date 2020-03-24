@@ -1,1 +1,126 @@
-<p>requirement works!</p>
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-header row m-0 justify-content-between py-3">
+      <h6 class="my-auto font-weight-bold text-primary">Requirements <span class="badge badge-danger mr-1">Open</span></h6>
+      <button *ngIf="requirementsList && requirementsList.length!=0" (click)="export()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+    </div>
+    <div *ngIf="!requirementsList" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="requirementsList && requirementsList.length==0" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5">No data here</p>
+      <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
+    </div>
+    <div *ngIf="requirementsList && requirementsList.length!=0" class="card-body">
+      <form class="my-2">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="searchText">
+      </form>
+      <div class="table-responsive">
+        <table id="table" class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Blood group</th>
+              <th>Quanitity</th>
+              <th>Bystander</th>
+              <th>Bystander's phone</th>
+              <th>Doctor</th>
+              <th>Hospital</th>
+              <th>Status</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of requirementsList | paginate: { id: 'page', itemsPerPage: 15, currentPage: page } | filter: searchText">
+              <td>{{item.patient_name}}</td>
+              <td>{{item.blood_group}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.bystander_name}}</td>
+              <td>{{item.bystander_phone}}</td>
+              <td>Dr.{{item.doctor_name}}</td>
+              <td>{{item.hospital}},<br>{{item.area}},<br>{{item.city}}</td>
+              <td [ngClass]="{'bg-success': item.status ==='closed', 'bg-danger': item.status  ==='open'}" class="text-white text-center text-uppercase"><b>{{item.status}}</b></td>
+              <td class="text-center"><a href="tel:{{item.bystander_phone}}" class="btn btn-default"><i class="fa fa-phone-alt text-success"></i></a></td>
+              <td><button (click)="close(item.key)" class="btn btn-light text-success"><b>Close</b></button></td>
+              <td class="text-center"><button (click)="delete(item.key)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination justify-content-end">
+        <pagination-controls id="page" (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header row m-0 justify-content-between py-3">
+      <h6 class="my-auto font-weight-bold text-primary">Requirements <span class="badge badge-success mr-1">Closed</span></h6>
+      <button *ngIf="closedrequirementsList && closedrequirementsList.length!=0" (click)="closedExport()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
+    </div>
+    <div *ngIf="!closedrequirementsList" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="closedrequirementsList && closedrequirementsList.length==0" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5">No data here</p>
+      <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fundraw_empty_xct9.svg?alt=media&token=51d32ae5-a7aa-431e-9b53-d01323e9a25e" alt="">
+    </div>
+    <div *ngIf="closedrequirementsList && closedrequirementsList.length!=0" class="card-body">
+      <form class="my-2">
+        <input class="text-left search-input form-control" name="key" type="text" placeholder="Search" [(ngModel)]="closedSearchText">
+      </form>
+      <div class="table-responsive">
+        <table id="closedtable" class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Blood group</th>
+              <th>Quanitity</th>
+              <th>Bystander</th>
+              <th>Bystander's phone</th>
+              <th>Doctor</th>
+              <th>Hospital</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of closedrequirementsList | paginate: { id: 'closedpage', itemsPerPage: 15, currentPage: closedPage } | filter: closedSearchText">
+              <td>{{item.patient_name}}</td>
+              <td>{{item.blood_group}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.bystander_name}}</td>
+              <td>{{item.bystander_phone}}</td>
+              <td>Dr.{{item.doctor_name}}</td>
+              <td>{{item.hospital}},<br>{{item.area}},<br>{{item.city}}</td>
+              <td [ngClass]="{'bg-success': item.status ==='closed', 'bg-danger': item.status  ==='open'}" class="text-white text-center text-uppercase"><b>{{item.status}}</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination justify-content-end">
+        <pagination-controls id="closedpage" (pageChange)="closedPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+</div>

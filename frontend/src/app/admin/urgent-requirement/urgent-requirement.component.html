@@ -38,6 +38,7 @@
               <th>Status</th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -100,8 +101,6 @@
               <th>Doctor</th>
               <th>Hospital</th>
               <th>Status</th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -114,9 +113,6 @@
               <td>Dr.{{item.doctor_name}}</td>
               <td>{{item.hospital}},<br>{{item.area}},<br>{{item.city}}</td>
               <td [ngClass]="{'bg-success': item.status ==='closed', 'bg-danger': item.status  ==='open'}" class="text-white text-center text-uppercase"><b>{{item.status}}</b></td>
-              <td class="text-center"><a href="tel:{{item.bystander_phone}}" class="btn btn-default"><i class="fa fa-phone-alt text-success"></i></a></td>
-              <td><button (click)="close(item.key)" class="btn btn-light text-success"><b>Close</b></button></td>
-              <td class="text-center"><button (click)="delete(item.key)" class="btn btn-default"><i class="fa fa-trash-alt text-danger"></i></button></td>
             </tr>
           </tbody>
         </table>
