@@ -6,7 +6,7 @@
             <div class="container">
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-address-card"></i> Dashboard</h1>
+                    <h1 class="h3 mb-0 text-gray-800"><b><i class="fas fa-address-card"></i> Dashboard</b></h1>
                 </div>
 
                 <!--User Content-->
@@ -16,26 +16,26 @@
                 <!--Raise events-->
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h3 class="h5 mb-0 text-gray-800"><i class="fas fa-fist-raised"></i> Raise Events</h3>
+                    <h3 class="h5 mb-0 text-gray-800"><b><i class="fas fa-fist-raised"></i> Raise Events</b></h3>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 display-grid">
                         <a routerLink="/create/blood-donation-event" class="btn raise-button shadow btn-primary mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-calendar-plus"></i></span>
-                            <span class="text text-white">Create a blood donation event</span>
+                            <b class="text text-white">Create a blood donation event</b>
                         </a>
                     </div>
                     <div class="col-md-4 display-grid">
                         <a routerLink="/create/urgent-requirement" class="btn raise-button shadow btn-danger  mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-bullhorn"></i></span>
-                            <span class="text text-white">Post an urgent requirement</span>
+                            <b class="text text-white">Post an urgent requirement</b>
                         </a>
                     </div>
                     <div class="col-md-4 display-grid">
-                        <a routerLink="/create/requirement" class="btn raise-button shadow btn-warning  mt-2 mb-2">
+                        <a routerLink="/create/requirement" class="btn raise-button shadow btn-success  mt-2 mb-2">
                             <span class="icon text-white-50 mr-2"><i class="fas fa-plus"></i></span>
-                            <span class="text text-white">Post a blood requirement</span>
+                            <b class="text text-white">Post a blood requirement</b>
                         </a>
                     </div>
 
@@ -43,11 +43,101 @@
 
                 <!--Note-->
 
+                <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+                  <h3 class="h5 mb-0 text-gray-800"><b><i class="fas fa-heartbeat"></i> Your Status</b></h3>
+                </div>
+
                 <div class="row">
+                  <div *ngIf="!isUserAdmin()" class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header row m-0 justify-content-between py-3">
+                            <p class="mt-auto mb-auto p-0 text-uppercase text-primary">
+                                <i class="fas fa-user"></i>
+                                {{userName}}
+                            </p>
+                            <div *ngIf="loaded && isDonorRegistered" class="button-container">
+                                <button [disabled]="canDonate" (click)="changeStatus('Cannot Donate')"  class="btn btn-success btn-icon-split status-button mr-1 mb-1">
+                                    <span class="icon text-white-50"><i class="fas fa-thumbs-up"></i></span>
+                                    <b class="text">Can Donate</b>
+                                </button>
+                                <button [disabled]="!canDonate"(click)="changeStatus('Can Donate')" class="btn btn-danger btn-icon-split status-button mr-1 mb-1 ">
+                                    <span class="icon text-white-50"><i class="fas fa-thumbs-down"></i></span>
+                                    <b class="text">Cannot Donate</b>
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="!loaded" class="card-body text-center">
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div *ngIf="loaded && !isDonorRegistered" class="card-body text-center">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2 text-center">
+                                    <i class="fas fa-award fa-2x text-primary "></i>
+                                    <div class="text-xs font-weight-bold text-muted text-uppercase mb-1"><b>Donor Registration</b></div>
+                                    <a routerLink="/registration/donor" class="h5 mb-0 text-decoration-none text-primary">Register</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="loaded && isDonorRegistered" class="card-body">
+                            <table>
+                                <tr>
+                                    <td><h6><span class="text-uppercase"><b>Current Status</b></span></h6></td>
+                                    <td class="text-center"> : </td>
+                                    <td>
+                                        <i *ngIf="canDonate" class="fa fa-check text-success"></i>
+                                        <i *ngIf="!canDonate" class="fa fa-times text-danger"></i>
+                                        {{donorDetails.status}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h6><span class="text-uppercase"><b>Blood Group</b></span></h6></td>
+                                    <td class="text-center"> : </td>
+                                    <td>{{donorDetails.blood_group}}</td>
+                                </tr>
+                                <tr>
+                                    <td><h6><span class="text-uppercase"><b>City</b></span></h6></td>
+                                    <td class="text-center"> : </td>
+                                    <td>
+                                        <input #city class="mr-2 city-input" [disabled]="cityEditDisabled" type="text" value="{{donorDetails.city}}">
+                                    </td>
+                                    <td>
+                                        <i (click)="activateCityEdit()" *ngIf="cityEditActivated" class="fa fa-pencil-alt text-danger"></i>
+                                        <i (click)="updateCity(city.value)" *ngIf="cityChangeActivated" class="fa fa-save text-success"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h6><span class="text-uppercase"><b>Date of Birth</b></span></h6></td>
+                                    <td class="text-center"> : </td>
+                                    <td>{{donorDetails.date_of_birth}}</td>
+                                </tr>
+                                <tr>
+                                    <td><h6><span class="text-uppercase"><b>Phone</b></span></h6></td>
+                                    <td class="text-center"> : </td>
+                                    <td>{{donorDetails.phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td><h6><span class="text-uppercase"><b>Email</b></span></h6></td>
+                                    <td class="text-center"> : </td>
+                                    <td>{{donorDetails.email}}</td>
+                                </tr>
+                            </table>
+
+                            <app-notifier></app-notifier>
+                        </div>
+                    </div>
+                </div>
                     <div class="col-lg-6">
                         <div class="card shadow mb-4 mt-2">
                             <div class="card-header">
-                                <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-exclamation-triangle"></i> Note</p>
+                                <p class="text-muted m-0 p-0 text-uppercase"><b><i class="fas fa-exclamation-triangle"></i> Note</b></p>
                             </div>
                             <div class="card-body">
                               <div class="text-center">
@@ -57,10 +147,16 @@
                             </div>
                         </div>
                     </div>
+
+                </div>
+
+                <!--Health status-->
+
+                <div class="row">
                     <div class="col-lg-6">
                       <div class="card shadow mb-4 mt-2">
                           <div class="card-header py-3">
-                              <p class="m-0 p-0 text-uppercase text-primary"><i class="fas fa-exclamation-triangle"></i> Blood donation Eligiblity</p>
+                              <p class="m-0 p-0 text-uppercase text-primary"><b><i class="fas fa-exclamation-triangle"></i> Blood donation Eligiblity</b></p>
                           </div>
                           <div class="card-body">
                               <h6>In order to donate you must meet the requirements listed below.</h6>
@@ -75,139 +171,28 @@
                           </div>
                       </div>
                   </div>
-                </div>
-
-                <!--Health status-->
-
-                <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
-                    <h3 class="h5 mb-0 text-gray-800"><i class="fas fa-heartbeat"></i> Your Status</h3>
-                </div>
-
-                <div class="row">
-                    <div *ngIf="!isUserAdmin()" class="col-lg-6">
-                        <div class="card shadow mb-4">
-                            <div class="card-header row m-0 justify-content-between py-3">
-                                <p class="mt-auto mb-auto p-0 text-uppercase text-primary">
-                                    <i class="fas fa-user"></i>
-                                    {{userName}}
-                                </p>
-                                <div *ngIf="loaded && isDonorRegistered" class="button-container">
-                                    <button [disabled]="canDonate" (click)="changeStatus('Cannot Donate')"  class="btn btn-success btn-icon-split status-button mr-1 mb-1">
-                                        <span class="icon text-white-50"><i class="fas fa-thumbs-up"></i></span>
-                                        <span class="text">Can Donate</span>
-                                    </button>
-                                    <button [disabled]="!canDonate"(click)="changeStatus('Can Donate')" class="btn btn-danger btn-icon-split status-button mr-1 mb-1 ">
-                                        <span class="icon text-white-50"><i class="fas fa-thumbs-down"></i></span>
-                                        <span class="text">Cannot Donate</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div *ngIf="!loaded" class="card-body text-center">
-                                <div class="spinner-grow text-primary" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                                <div class="spinner-grow text-primary" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                                <div class="spinner-grow text-primary" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </div>
-                            <div *ngIf="loaded && !isDonorRegistered" class="card-body text-center">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2 text-center">
-                                        <i class="fas fa-award fa-2x text-primary "></i>
-                                        <div class="text-xs font-weight-bold text-muted text-uppercase mb-1">Donor Registration</div>
-                                        <a routerLink="/registration/donor" class="h5 mb-0 text-decoration-none text-primary">Register</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="loaded && isDonorRegistered" class="card-body">
-                                <table>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>Current Status</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>
-                                            <i *ngIf="canDonate" class="fa fa-check text-success"></i>
-                                            <i *ngIf="!canDonate" class="fa fa-times text-danger"></i>
-                                            {{donorDetails.status}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>Blood Group</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>{{donorDetails.blood_group}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>City</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>
-                                            <input #city class="mr-2 city-input" [disabled]="cityEditDisabled" type="text" value="{{donorDetails.city}}">
-                                        </td>
-                                        <td>
-                                            <i (click)="activateCityEdit()" *ngIf="cityEditActivated" class="fa fa-pencil-alt text-danger"></i>
-                                            <i (click)="updateCity(city.value)" *ngIf="cityChangeActivated" class="fa fa-save text-success"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>Date of Birth</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>{{donorDetails.date_of_birth}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>Phone</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>{{donorDetails.phone}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6><span class="text-uppercase"><b>Email</b></span></h6></td>
-                                        <td class="text-center"> : </td>
-                                        <td>{{donorDetails.email}}</td>
-                                    </tr>
-                                </table>
-
-                                <app-notifier></app-notifier>
-                            </div>
+                  <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <p class="m-0 p-0 text-uppercase text-danger"><b><i class="fas fa-times-circle"></i> You cannot donate blood if</b></p>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><i class="fas fa-times text-danger"></i> Cold / fever in the past 1 week</li>
+                                <li><i class="fas fa-times text-danger"></i> Under treatment with antibiotics or any other medication</li>
+                                <li><i class="fas fa-times text-danger"></i> Cardiac problems, hypertension, epilepsy, diabetes (on insulin therapy), history of cancer, chronic kidney or liver disease, bleeding tendencies, venereal disease etc.</li>
+                                <li><i class="fas fa-times text-danger"></i> Major surgery in the last 6 months</li>
+                                <li><i class="fas fa-times text-danger"></i> Vaccination in the last 24 hours</li>
+                                <li><i class="fas fa-times text-danger"></i> Had a miscarriage in the last 6 months or have been pregnant / lactating in the last one year</li>
+                                <li><i class="fas fa-times text-danger"></i> Had fainting attacks during last donation</li>
+                                <li><i class="fas fa-times text-danger"></i> Have regularly received treatment with blood products</li>
+                                <li><i class="fas fa-times text-danger"></i> Shared a needle to inject drugs/ have history of drug addiction</li>
+                                <li><i class="fas fa-times text-danger"></i> Had sexual relations with different partners or with a high risk individual</li>
+                                <li><i class="fas fa-times text-danger"></i> Been tested positive for antibodies to HIV</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                      <div class="card shadow mb-4">
-                          <div class="card-header">
-                              <p class="text-muted m-0 p-0 text-uppercase"><i class="fas fa-quote-right"></i> Tips</p>
-                          </div>
-                          <div class="card-body">
-                              <div class="text-center">
-                                <img class="doodle" src="https://firebasestorage.googleapis.com/v0/b/bloodbank-71b27.appspot.com/o/media%2Fcoffee.gif?alt=media" alt="">
-                                <p class="text-muted m-0 p-0">The events raised by users will be validated by the admin before releasing the post</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <p class="m-0 p-0 text-uppercase text-danger"><i class="fas fa-times-circle"></i> You cannot donate blood if</p>
-                            </div>
-                            <div class="card-body">
-                                <ul>
-                                    <li><i class="fas fa-times text-danger"></i> Cold / fever in the past 1 week</li>
-                                    <li><i class="fas fa-times text-danger"></i> Under treatment with antibiotics or any other medication</li>
-                                    <li><i class="fas fa-times text-danger"></i> Cardiac problems, hypertension, epilepsy, diabetes (on insulin therapy), history of cancer, chronic kidney or liver disease, bleeding tendencies, venereal disease etc.</li>
-                                    <li><i class="fas fa-times text-danger"></i> Major surgery in the last 6 months</li>
-                                    <li><i class="fas fa-times text-danger"></i> Vaccination in the last 24 hours</li>
-                                    <li><i class="fas fa-times text-danger"></i> Had a miscarriage in the last 6 months or have been pregnant / lactating in the last one year</li>
-                                    <li><i class="fas fa-times text-danger"></i> Had fainting attacks during last donation</li>
-                                    <li><i class="fas fa-times text-danger"></i> Have regularly received treatment with blood products</li>
-                                    <li><i class="fas fa-times text-danger"></i> Shared a needle to inject drugs/ have history of drug addiction</li>
-                                    <li><i class="fas fa-times text-danger"></i> Had sexual relations with different partners or with a high risk individual</li>
-                                    <li><i class="fas fa-times text-danger"></i> Been tested positive for antibodies to HIV</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

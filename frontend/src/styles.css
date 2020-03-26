@@ -20,3 +20,7 @@ body{
   display: none !important;
   margin-left: 0.5rem;
 }
+
+.card *{
+  overflow: hidden;
+}
