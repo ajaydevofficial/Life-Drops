@@ -20,9 +20,8 @@ export class UrgentrequirementpageComponent implements OnInit {
         value['directionLink'] = "https://www.google.com/maps/place/" + element.val().location.lat + ',' + element.val().location.lng;
         this.urgentRequirementsList.push(value);
       })
-      console.log(this.urgentRequirementsList)
     })
-    
+
   }
 
 }

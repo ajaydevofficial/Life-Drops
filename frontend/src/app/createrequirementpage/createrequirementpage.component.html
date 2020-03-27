@@ -21,24 +21,24 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="patient">Patient's Name</label>
+                                            <label for="patient"><b>Patient's Name</b></label>
                                             <input #patient required name="patient" type="text" class="form-control" placeholder="Patient Name">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="doctor">Doctor's Name</label>
+                                            <label for="doctor"><b>Doctor's Name</b></label>
                                             <input #doctor required name="doctor" type="text" class="form-control" placeholder="Doctor Name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="bystander">Bystander's Name</label>
+                                        <label for="bystander"><b>Bystander's Name</b></label>
                                         <input #bystander required name="bystander" type="text" class="form-control" placeholder="Bystander's Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="bystander">Bystander's Phone</label>
+                                        <label for="bystander"><b>Bystander's Phone</b></label>
                                         <input #bystanderphone required name="bystander-phone" type="text" class="form-control" placeholder="Bystander's Phone">
                                     </div>
                                     <div class="form-group">
-                                        <label for="place">Blood Group</label>
+                                        <label for="place"><b>Blood Group</b></label>
                                         <select #bloodgroup class="form-control" name="blood-group" id="blood-group">
                                             <option hidden selected disabled value="0">Select Blood Group</option>
                                             <option value="A+">A+</option>
@@ -52,19 +52,19 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="place">Quantity (in Units)</label>
+                                        <label for="place"><b>Quantity (in Units)</b></label>
                                         <input #quantity name="place" required type="number" class="form-control"  placeholder="Quantity">
                                     </div>
                                     <div class="form-group">
-                                        <label for="place">Hospital Name</label>
+                                        <label for="place"><b>Hospital Name</b></label>
                                         <input #hospital name="place" required type="text" class="form-control"  placeholder="Hospital Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="area">Area/Locality</label>
+                                        <label for="area"><b>Area/Locality</b></label>
                                         <input #area name="area" required type="text" class="form-control"  placeholder="Area">
                                     </div>
                                     <div class="form-group">
-                                        <label for="city">City/District</label>
+                                        <label for="city"><b>City/District</b></label>
                                         <input #city name="city" required type="text" class="form-control"  placeholder="City/District">
                                     </div>
                                     <div class="form-group">
@@ -86,7 +86,7 @@
                                         area.value,
                                         city.value
                                     )" class="btn btn-warning btn-block">
-                                      <i class="fas fa-plus text-white-50"></i> Create Blood Requirement
+                                      <b><i class="fas fa-plus text-white-50"></i> Create Blood Requirement</b>
                                     </button>
                                     <app-notifier></app-notifier>
                                 </div>

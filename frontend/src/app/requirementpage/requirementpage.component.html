@@ -15,8 +15,9 @@
         </div>
     </div>
     <div *ngIf="requirementsList.length==0" class="card-body text-center">
-        <i class="fa fa-flag display-1"></i><br>
-        <p>No urgent requirements registered in your city</p>
+      <p class="h1"><b>Sorry!</b></p>
+      <p class="h5 mt-1">No requirements registered in your city</p>
+      <img class="doodle mt-2" src="assets/img/doodles/empty.svg" alt="">
     </div>
     <div class="row">
         <div *ngFor="let item of requirementsList" class="col-lg-4">

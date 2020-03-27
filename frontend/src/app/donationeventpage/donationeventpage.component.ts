@@ -9,7 +9,7 @@ import * as firebase from 'firebase';
 export class DonationeventpageComponent implements OnInit {
 
   donationEventList;
-  currentDate; 
+  currentDate;
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +22,7 @@ export class DonationeventpageComponent implements OnInit {
         value['directionLink'] = "https://www.google.com/maps/place/" + element.val().location.lat + ',' + element.val().location.lng;
         this.donationEventList.push(value);
       })
+      this.donationEventList = [];
     })
   }
 
@@ -31,9 +32,9 @@ export class DonationeventpageComponent implements OnInit {
         day = '' + d.getDate(),
         year = d.getFullYear();
 
-    if (month.length < 2) 
+    if (month.length < 2)
         month = '0' + month;
-    if (day.length < 2) 
+    if (day.length < 2)
         day = '0' + day;
 
     return [year, month, day].join('-');
