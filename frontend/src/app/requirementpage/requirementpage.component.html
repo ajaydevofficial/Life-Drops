@@ -1,81 +1,86 @@
 
 <div class="container">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h3 class="h6 mb-0 text-gray-800 text-uppercase"><i class="fas fa-tint"></i> Blood Requirements in your city</h3>
-    </div>
-    <div *ngIf="!requirementsList" class="card-body text-center">
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <div *ngIf="requirementsList.length==0" class="card-body text-center">
-      <p class="h1"><b>Sorry!</b></p>
-      <p class="h5 mt-1">No requirements registered in your city</p>
-      <img class="doodle mt-2" src="assets/img/doodles/empty.svg" alt="">
-    </div>
-    <div class="row">
-        <div *ngFor="let item of requirementsList" class="col-lg-4">
-            <div class="card shadow mb-4 mt-2">
-                <div class="card-body">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><i class="fas fa-user"></i></td>
-                                <td><b>Patient</b></td>
-                                <td>:</td>
-                                <td>{{item.patient_name}}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-map-marker-alt"></i></td>
-                                <td><b>Hospital</b></td>
-                                <td>:</td>
-                                <td>{{item.hospital}},<br> {{item.area}}, <br>{{item.city}}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-hands-helping"></i></td>
-                                <td><b>Bystander</b></td>
-                                <td>:</td>
-                                <td>{{item.bystander_name}}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-stethoscope"></i></td>
-                                <td><b>Doctor</b></td>
-                                <td>:</td>
-                                <td>Dr.{{item.doctor_name}}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-tint"></i></td>
-                                <td><b>Group</b></td>
-                                <td>:</td>
-                                <td>{{item.blood_group}}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-hourglass-end"></i></td>
-                                <td><b>Status</b></td>
-                                <td>:</td>
-                                <td>
-                                    <span *ngIf="item.status==='open'" class="badge badge-success mr-1">Open</span>
-                                    <span *ngIf="item.status==='closed'" class="badge badge-danger mr-1">Closed</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="flex">
-                    <div class="flex-container">
-                        <a href="tel:{{item.bystander_phone}}" class="card-header btn btn-primary button_call"><i class="fas fa-phone-alt"></i> Call Bystander</a>
-                    </div>
-                    <div class="flex-container">
-                        <a href="{{item.directionLink}}" target="_blank" class="card-header btn btn-primary direction_button"><i class="fas fa-directions"></i> Open Map</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h3 class="h6 mb-0 text-gray-800 text-uppercase"><i class="fas fa-exclamation"></i> Blood requirements in your city</h3>
+  </div>
+  <div *ngIf="!requirementsList" class="card-body text-center">
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+  </div>
+  <div *ngIf="requirementsList && !isDonorRegistered && !isUserAdmin()" class="card-body text-center">
+    <p class="h1"><b>Oops!</b></p>
+    <p class="h5 mt-1">Complete Donor registration to view this page</p>
+    <img class="doodle mt-2" src="assets/img/doodles/register.svg" alt="">
+  </div>
+  <div *ngIf="requirementsList && requirementsList.length==0 && isDonorRegistered" class="card-body text-center">
+    <p class="h1"><b>Sorry!</b></p>
+    <p class="h5 mt-1">No urgent requirements registered in your city</p>
+    <img class="doodle mt-2" src="assets/img/doodles/empty.svg" alt="">
+  </div>
+  <div *ngIf="requirementsList && requirementsList.length!=0 && (isDonorRegistered||isUserAdmin()) " class="row">
+      <div *ngFor="let item of requirementsList" class="col-lg-4">
+          <div class="card shadow mb-4 mt-2">
+              <div class="card-body">
+                  <table>
+                      <tbody>
+                          <tr>
+                              <td><i class="fas fa-user"></i></td>
+                              <td><b>Patient</b></td>
+                              <td>:</td>
+                              <td>{{item.patient_name}}</td>
+                          </tr>
+                          <tr>
+                              <td><i class="fas fa-map-marker-alt"></i></td>
+                              <td><b>Hospital</b></td>
+                              <td>:</td>
+                              <td>{{item.hospital}}, {{item.area}}, {{item.city}}</td>
+                          </tr>
+                          <tr>
+                              <td><i class="fas fa-hands-helping"></i></td>
+                              <td><b>Bystander</b></td>
+                              <td>:</td>
+                              <td>{{item.bystander_name}}</td>
+                          </tr>
+                          <tr>
+                              <td><i class="fas fa-stethoscope"></i></td>
+                              <td><b>Doctor</b></td>
+                              <td>:</td>
+                              <td>Dr.{{item.doctor_name}}</td>
+                          </tr>
+                          <tr>
+                              <td><i class="fas fa-tint"></i></td>
+                              <td><b>Group</b></td>
+                              <td>:</td>
+                              <td>{{item.blood_group}}</td>
+                          </tr>
+                          <tr>
+                              <td><i class="fas fa-hourglass-end"></i></td>
+                              <td><b>Status</b></td>
+                              <td>:</td>
+                              <td>
+                                  <span *ngIf="item.status==='open'" class="badge badge-success mr-1">Open</span>
+                                  <span *ngIf="item.status==='closed'" class="badge badge-danger mr-1">Closed</span>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="flex">
+                  <div class="flex-container">
+                      <a href="tel:{{item.bystander_phone}}" class="card-header btn btn-primary button_call"><i class="fas fa-phone-alt"></i> Call Bystander</a>
+                  </div>
+                  <div class="flex-container">
+                      <a href="{{item.directionLink}}" target="_blank" class="card-header btn btn-primary direction_button"><i class="fas fa-directions"></i> Open Map</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>

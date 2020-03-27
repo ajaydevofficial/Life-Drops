@@ -10,20 +10,44 @@ export class DonationeventpageComponent implements OnInit {
 
   donationEventList;
   currentDate;
+  uid;
+  isDonorRegistered;
+  userCity;
   constructor() { }
 
   ngOnInit() {
     this.currentDate = this.formatDate(new Date())
     window.moveTo(0,0);
+
+    if(localStorage.getItem('loggedUser')){
+      this.uid = JSON.parse(localStorage.getItem('loggedUser')).uid
+      firebase.database().ref('donors/' + this.uid).on('value',(snap)=>{
+        this.isDonorRegistered = snap.exists();
+        if(snap.exists()){
+          snap.forEach(element => {
+            this.userCity = element.val().city;
+          });
+        }
+      });
+    }
+
     firebase.database().ref('blood-donation-events').on('value',(snap)=>{
       this.donationEventList = []
       snap.forEach(element=>{
         var value = element.val()
         value['directionLink'] = "https://www.google.com/maps/place/" + element.val().location.lat + ',' + element.val().location.lng;
-        this.donationEventList.push(value);
-      })
-      this.donationEventList = [];
-    })
+        if(!this.isUserAdmin()){
+          if(value.city.toLowerCase() == this.userCity.toLowerCase() && this.currentDate < value.to_date ){
+            this.donationEventList.push(value);
+          }
+        }
+        else{
+          if(this.currentDate < value.to_date ){
+            this.donationEventList.push(value);
+          }
+        }
+      });
+    });
   }
 
   formatDate(date) {
@@ -38,6 +62,15 @@ export class DonationeventpageComponent implements OnInit {
         day = '0' + day;
 
     return [year, month, day].join('-');
-}
+  }
+
+  isUserAdmin(){
+    if(localStorage.getItem('adminID')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
 }

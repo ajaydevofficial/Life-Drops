@@ -14,12 +14,17 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <div *ngIf="urgentRequirementsList.length==0" class="card-body text-center">
+    <div *ngIf="urgentRequirementsList && !isDonorRegistered && !isUserAdmin()" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5 mt-1">Complete Donor registration to view this page</p>
+      <img class="doodle mt-2" src="assets/img/doodles/register.svg" alt="">
+    </div>
+    <div *ngIf="urgentRequirementsList && urgentRequirementsList.length==0 && isDonorRegistered" class="card-body text-center">
       <p class="h1"><b>Sorry!</b></p>
       <p class="h5 mt-1">No urgent requirements registered in your city</p>
       <img class="doodle mt-2" src="assets/img/doodles/empty.svg" alt="">
     </div>
-    <div class="row">
+    <div *ngIf="urgentRequirementsList && urgentRequirementsList.length!=0 && (isDonorRegistered||isUserAdmin()) " class="row">
         <div *ngFor="let item of urgentRequirementsList" class="col-lg-4">
             <div class="card shadow mb-4 mt-2">
                 <div class="card-body">

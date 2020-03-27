@@ -14,12 +14,17 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <div *ngIf="donationEventList.length==0" class="card-body text-center">
+    <div *ngIf="donationEventList && !isDonorRegistered && !isUserAdmin()" class="card-body text-center">
+      <p class="h1"><b>Oops!</b></p>
+      <p class="h5 mt-1">Complete Donor registration to view this page</p>
+      <img class="doodle mt-2" src="assets/img/doodles/register.svg" alt="">
+    </div>
+    <div *ngIf="donationEventList && donationEventList.length==0 && isDonorRegistered" class="card-body text-center">
       <p class="h1"><b>Sorry!</b></p>
       <p class="h5 mt-1">No events registered in your city</p>
       <img class="doodle mt-2" src="assets/img/doodles/empty.svg" alt="">
     </div>
-    <div *ngIf="donationEventList.length!=0" class="row">
+    <div *ngIf="donationEventList && donationEventList.length!=0 && (isDonorRegistered || isUserAdmin())" class="row">
         <div *ngFor="let item of donationEventList" class="col-lg-3">
             <div class="card shadow mb-4 mt-2">
                 <agm-map [latitude]="item.location.lat" [longitude]="item.location.lng" [zoom]="15" [zoomControl]="true" [scrollwheel]="false">

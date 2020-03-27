@@ -9,7 +9,8 @@
               <div class="col text-center">
                   <img src="assets/img/card-icons/event.svg" alt="" class="icon">
                   <div class="text-xs font-weight-bold text-dark text-uppercase mb-1 mt-2"><b>Blood donation events</b></div>
-                  <div *ngIf="loaded" class="h3 mb-0 font-weight-bold text-gray-800"><b>{{eventCount}}</b></div>
+                  <div *ngIf="loaded && (isDonorRegistered || isUserAdmin())" class="h3 mb-0 font-weight-bold text-gray-800"><b>{{eventCount}}</b></div>
+                  <div *ngIf="loaded && !isDonorRegistered  && !isUserAdmin()"><span class="badge badge-danger mr-1">Complete Regsitration</span></div>
                   <div *ngIf="!loaded" class="text-center">
                     <div class="spinner-grow text-primary" role="status">
                         <span class="sr-only">Loading...</span>
@@ -36,7 +37,8 @@
             <div class="col mr-2 text-center">
               <img src="assets/img/card-icons/urgent.svg" alt="" class="icon">
                 <div class="text-xs font-weight-bold text-dark text-uppercase mb-1 mt-2"><b>Urgent Blood Requirements</b></div>
-                <div *ngIf="loaded" class="h3 mb-0 font-weight-bold text-gray-800"><b>{{urgentRequirementCount}}</b></div>
+                <div *ngIf="loaded && (isDonorRegistered || isUserAdmin())" class="h3 mb-0 font-weight-bold text-gray-800"><b>{{urgentRequirementCount}}</b></div>
+                <div *ngIf="loaded && !isDonorRegistered  && !isUserAdmin()"><span class="badge badge-danger mr-1">Complete Regsitration</span></div>
                 <div *ngIf="!loaded" class="text-center">
                   <div class="spinner-grow text-primary" role="status">
                     <span class="sr-only">Loading...</span>
@@ -63,7 +65,8 @@
             <div class="col mr-2 text-center">
               <img src="assets/img/card-icons/requirement.png" alt="" class="icon">
                 <div class="text-xs font-weight-bold text-dark text-uppercase mb-1 mt-2"><b>Blood Requirements</b></div>
-                <div *ngIf="loaded"  class="h3 mb-0 font-weight-bold text-gray-800"><b>{{requirementCount}}</b></div>
+                <div *ngIf="loaded && (isDonorRegistered || isUserAdmin())" class="h3 mb-0 font-weight-bold text-gray-800"><b>{{requirementCount}}</b></div>
+                <div *ngIf="loaded && !isDonorRegistered  && !isUserAdmin()"><span class="badge badge-danger mr-1">Complete Regsitration</span></div>
                 <div *ngIf="!loaded"  class="text-center">
                   <div class="spinner-grow text-primary" role="status">
                       <span class="sr-only">Loading...</span>

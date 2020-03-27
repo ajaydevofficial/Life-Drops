@@ -31,8 +31,10 @@ td{
 
 .card-body{
   overflow: hidden;
-  white-space: nowrap;
 }
 .doodle{
   width: 250px;
+}
+.card{
+  height: 100%;
 }
