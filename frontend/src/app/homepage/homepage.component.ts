@@ -41,6 +41,10 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
 
+    if(this.isUserAdmin()){
+      this.router.navigate(['admin/dashboard'])
+    }
+
     if(localStorage.getItem('loggedUser')){
       this.uid = JSON.parse(localStorage.getItem('loggedUser')).uid
       firebase.database().ref('donors/' + this.uid).on('value',(snap)=>{

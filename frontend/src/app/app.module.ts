@@ -26,6 +26,7 @@ import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { ContactpageComponent } from './contactpage/contactpage.component';
 import { NotifierComponent } from './notifier/notifier.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from  '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -69,6 +70,7 @@ import { CardsComponent } from './admin/cards/cards.component';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -81,7 +83,7 @@ import { CardsComponent } from './admin/cards/cards.component';
     FormsModule,
     ExportAsModule
   ],
-  providers: [NotifierService,LoginGuard],
+  providers: [NotifierService,LoginGuard,NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

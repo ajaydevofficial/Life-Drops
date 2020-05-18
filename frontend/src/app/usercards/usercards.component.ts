@@ -23,19 +23,6 @@ export class UsercardsComponent implements OnInit {
 
       this.currentDate = this.formatDate(new Date())
 
-      if(this.isUserAdmin()){
-        firebase.database().ref('blood-donation-events/').on('value',(snap)=>{
-          this.eventCount = snap.numChildren()
-        });
-        firebase.database().ref('urgent-requirments/').on('value',(snap)=>{
-          this.urgentRequirementCount = snap.numChildren()
-        });
-        firebase.database().ref('blood-requirments/').on('value',(snap)=>{
-          this.requirementCount = snap.numChildren()
-          this.loaded = true;
-        });
-      }
-
       if(localStorage.getItem('loggedUser')){
         this.uid=JSON.parse(localStorage.getItem('loggedUser')).uid;
         firebase.database().ref('donors/' + this.uid).on('value',(snap)=>{
@@ -48,7 +35,9 @@ export class UsercardsComponent implements OnInit {
               this.eventCount = 0;
               snap.forEach(element=>{
                 var value = element.val()
-                if(value.city.toLowerCase() == this.userCity.toLowerCase() && this.currentDate < value.to_date ){
+                if((value.city.toLowerCase() == this.userCity.toLowerCase())&& (this.currentDate <= value.to_date)){
+                  console.log(this.currentDate);
+                  console.log(value.to_date);
                   this.eventCount++;
                 }
               });

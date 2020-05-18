@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,7 +23,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private router:Router,private exportAsService: ExportAsService) { }
+  constructor(private router:Router,private exportAsService: ExportAsService,public modal: NgbActiveModal, private _modalService: NgbModal) { }
 
   exportAsConfigOfCanDonate: ExportAsConfig = {
     type: 'xlsx', // the type you want to download
@@ -67,8 +69,9 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteDonor(uid){
-    firebase.database().ref('donors/' + uid).remove();
+    if(confirm("Confirm entry delete")){
+      firebase.database().ref('donors/' + uid).remove();
+    }
   }
-
 
 }

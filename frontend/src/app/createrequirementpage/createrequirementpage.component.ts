@@ -73,41 +73,51 @@ export class CreaterequirementpageComponent implements OnInit {
     quantity,
     hospital,
     area,
-    city
+    city,
+    phone
     ){
 
     if(patient!="" &&doctor!="" && bystander!="" && bystanderphone!="" && bloodgroup!="0" && quantity!="" && hospital!="" && area!="" && city!=""){
 
-      firebase.database().ref('blood-requirments/').push({
+      if(bystanderphone.length>=10 && this.checkPhoneStatus(bystanderphone)){
+        firebase.database().ref('blood-requirments/').push({
 
-        patient_name : patient,
-        doctor_name : doctor,
-        bystander_name : bystander,
-        bystander_phone : bystanderphone,
-        blood_group:bloodgroup,
-        quantity:quantity,
-        hospital:hospital,
-        area:area,
-        city : city,
-        location : {
-          lat : this.latitude,
-          lng : this.longitude
-        },
-        verification : 'Verification Pending',
-        status : 'open'
-      }).then(()=>{
-        this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
-        let inputs = document.getElementsByTagName('input');
-        for (var i=0;i<inputs.length;i++) {
-          inputs[i].value='';
-        }
-      }).catch(error=>{
-        this.notifier.display('error','Something went wrong')
-      })
+          patient_name : patient,
+          doctor_name : doctor,
+          bystander_name : bystander,
+          bystander_phone : bystanderphone,
+          blood_group:bloodgroup,
+          quantity:quantity,
+          hospital:hospital,
+          area:area,
+          city : city,
+          location : {
+            lat : this.latitude,
+            lng : this.longitude
+          },
+          verification : 'Verification Pending',
+          status : 'open'
+        }).then(()=>{
+          this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
+          let inputs = document.getElementsByTagName('input');
+          for (var i=0;i<inputs.length;i++) {
+            inputs[i].value='';
+          }
+        }).catch(error=>{
+          this.notifier.display('error','Something went wrong')
+        })
+      }
+      else{
+        this.notifier.display('error','Phone number is invalid');
+      }
     }
     else{
       this.notifier.display('error','Please fill all the details');
     }
+  }
+  checkPhoneStatus(phone){
+    var reg = /^\d+$/;
+    return reg.test(phone);
   }
 
 }

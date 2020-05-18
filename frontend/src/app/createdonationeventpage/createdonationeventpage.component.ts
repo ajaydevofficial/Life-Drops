@@ -64,34 +64,43 @@ export class CreatedonationeventpageComponent implements OnInit {
     this.longitude = $event.coords.lng;
   }
 
-  newDonationEvent(from_date,to_date,place,area,city){
-
+  newDonationEvent(from_date,to_date,place,area,city,phone){
     if(from_date&&to_date&&place&&area&&city){
-      firebase.database().ref('blood-donation-events/').push({
-        from_date : from_date,
-        to_date : to_date,
-        place : place,
-        area : area,
-        city : city,
-        location : {
-          lat : this.latitude,
-          lng : this.longitude
-        },
-        status : 'Verification Pending'
-      }).then(()=>{
-        this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
-        let inputs = document.getElementsByTagName('input');
-        for (var i=0;i<inputs.length;i++) {
-          inputs[i].value='';
-        }
-      }).catch(error=>{
-        this.notifier.display('error','Something went wrong')
-      })
+      if(phone.length>=10 && this.checkPhoneStatus(phone)){
+        firebase.database().ref('blood-donation-events/').push({
+          from_date : from_date,
+          to_date : to_date,
+          place : place,
+          phone: phone,
+          area : area,
+          city : city,
+          location : {
+            lat : this.latitude,
+            lng : this.longitude
+          },
+          status : 'Verification Pending'
+        }).then(()=>{
+          this.notifier.display('success', 'Succesfully send to admin for verification, will appear once admins verify the event')
+          let inputs = document.getElementsByTagName('input');
+          for (var i=0;i<inputs.length;i++) {
+            inputs[i].value='';
+          }
+        }).catch((error)=>{
+          this.notifier.display('error','Something went wrong')
+        })
+      }
+      else{
+        this.notifier.display('error','Phone number is invalid')
+      }
     }
     else{
       this.notifier.display('error','Please fill all the details')
     }
 
+  }
+  checkPhoneStatus(phone){
+    var reg = /^\d+$/;
+    return reg.test(phone);
   }
 
 }

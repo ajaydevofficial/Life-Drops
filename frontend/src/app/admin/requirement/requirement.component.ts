@@ -54,14 +54,18 @@ export class RequirementComponent implements OnInit {
   }
 
   close(key){
-    firebase.database().ref('blood-requirments/' + key).update({
-      status: "closed",
-      verification: "Verified"
-    });
+    if(confirm("Confirm closing requirement")){
+      firebase.database().ref('blood-requirments/' + key).update({
+        status: "closed",
+        verification: "Verified"
+      });
+    }
   }
 
   delete(key){
-    firebase.database().ref('blood-requirments/' + key).remove();
+    if(confirm("Confirm entry delete")){
+      firebase.database().ref('blood-requirments/' + key).remove();
+    }
   }
 
 }

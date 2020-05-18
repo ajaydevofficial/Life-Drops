@@ -41,11 +41,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                      <label for="place">Body Weight(kg)</label>
+                                      <input #weight name="weight" required type="text" class="form-control"  placeholder="Body Weight">
+                                  </div>
+                                    <div class="form-group">
                                         <label for="place">Phone</label>
                                         <input #phone name="place" required type="text" class="form-control"  placeholder="Phone">
                                     </div>
                                     <div class="form-group">
-                                        <label for="place">City/District</label>
+                                        <label for="place">Current District</label>
                                         <input #city name="place" required type="text" class="form-control"  placeholder="City District">
                                     </div>
                                     <div class="form-group">
@@ -57,7 +61,7 @@
                                             </ul>
                                         </small>
                                     </div>
-                                    <button (click)="registerDonor(dob.value,bloodgroup.value,phone.value,city.value)" class="btn btn-success btn-block">
+                                    <button (click)="registerDonor(dob.value,bloodgroup.value,phone.value,city.value,weight.value)" class="btn btn-success btn-block">
                                       <i class="fas fa-award text-white-50"></i> Resgister as Donor
                                     </button>
                                     <app-notifier></app-notifier>

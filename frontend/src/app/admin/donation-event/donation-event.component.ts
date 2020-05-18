@@ -108,13 +108,17 @@ export class DonationEventComponent implements OnInit {
   }
 
   verifyEvent(key){
-    firebase.database().ref('blood-donation-events/' + key).update({
-      status: "Verified"
-    });
+    if(confirm("Confirm verification")){
+      firebase.database().ref('blood-donation-events/' + key).update({
+        status: "Verified"
+      });
+    }
   }
 
   deleteEvent(id){
-    firebase.database().ref('blood-donation-events/' + id).remove();
+    if(confirm("Confirm entry delete")){
+      firebase.database().ref('blood-donation-events/' + id).remove();
+    }
   }
 
   formatDate(date) {
