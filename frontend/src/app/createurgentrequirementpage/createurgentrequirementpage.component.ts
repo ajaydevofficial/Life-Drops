@@ -98,8 +98,7 @@ export class CreateurgentrequirementpageComponent implements OnInit {
     bloodgroup,
     quantity,
     hospital,
-    area,
-    city
+    area
     ){
 
     if(patient!="" &&doctor!="" && bystander!="" && bystanderphone!="" && bloodgroup!="0" && quantity!="" && hospital!="" && area!="" && this.cityName!="" &&latitude&&longitude){
