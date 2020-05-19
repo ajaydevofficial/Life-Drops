@@ -36,12 +36,12 @@ export class UrgentrequirementpageComponent implements OnInit {
         var value = element.val()
         value['directionLink'] = "https://www.google.com/maps/place/" + element.val().location.lat + ',' + element.val().location.lng;
         if(!this.isUserAdmin()){
-          if(value.city.toLowerCase() == this.userCity.toLowerCase() && value.status.toLowerCase()!='closed' ){
+          if(value.city.toLowerCase() == this.userCity.toLowerCase() && value.status.toLowerCase()!='closed' &&(value.verification=="Verified") ){
             this.urgentRequirementsList.push(value);
           }
         }
         else{
-          if(value.status.toLowerCase()!='closed'){
+          if((value.status.toLowerCase()!='closed')){
             this.urgentRequirementsList.push(value);
           }
         }

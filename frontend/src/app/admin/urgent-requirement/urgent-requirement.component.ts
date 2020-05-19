@@ -62,10 +62,19 @@ export class UrgentRequirementComponent implements OnInit {
     }
   }
 
+  verify(key){
+    if(confirm("Confirm Verification")){
+      firebase.database().ref('urgent-requirments/' + key).update({
+        verification: "Verified"
+      });
+    }
+  }
+
   delete(key){
     if(confirm("Confirm entry delete")){
       firebase.database().ref('urgent-requirments/' + key).remove();
     }
   }
+
 
 }

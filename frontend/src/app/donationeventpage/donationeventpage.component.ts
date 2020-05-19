@@ -37,12 +37,12 @@ export class DonationeventpageComponent implements OnInit {
         var value = element.val()
         value['directionLink'] = "https://www.google.com/maps/place/" + element.val().location.lat + ',' + element.val().location.lng;
         if(!this.isUserAdmin()){
-          if(value.city.toLowerCase() == this.userCity.toLowerCase() && this.currentDate < value.to_date ){
+          if(value.city.toLowerCase() == this.userCity.toLowerCase() && this.currentDate < value.to_date &&value.status=="Verified" ){
             this.donationEventList.push(value);
           }
         }
         else{
-          if(this.currentDate < value.to_date ){
+          if((this.currentDate < value.to_date )&& (value.status=="Verified")){
             this.donationEventList.push(value);
           }
         }

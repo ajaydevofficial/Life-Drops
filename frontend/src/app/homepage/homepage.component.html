@@ -111,11 +111,26 @@
                                     <td><h6><span class="text-uppercase"><b>Current District</b></span></h6></td>
                                     <td class="text-center"> : </td>
                                     <td>
-                                        <input #city class="mr-2 city-input" [disabled]="cityEditDisabled" type="text" value="{{donorDetails.city}}">
-                                    </td>
-                                    <td>
-                                        <i (click)="activateCityEdit()" *ngIf="cityEditActivated" class="fa fa-pencil-alt text-danger"></i>
-                                        <i (click)="updateCity(city.value)" *ngIf="cityChangeActivated" class="fa fa-save text-success"></i>
+                                        <span *ngIf="cityEditActivated" class="mr-2 city-input">{{donorDetails.city}}</span>
+                                        <select class="form-control" *ngIf="cityChangeActivated" [(ngModel)]="cityValue">
+                                          <option selected hidden>Select district</option>
+                                          <option value="Kasargod">Kasargod</option>
+                                          <option value="Kannur">Kannur</option>
+                                          <option value="Wayanad">Wayanad</option>
+                                          <option value="Kozhikode">Kozhikode</option>
+                                          <option value="Malapppuram">Malappuram</option>
+                                          <option value="Palakkad">Palakkad</option>
+                                          <option value="Thrissur">Thrissur</option>
+                                          <option value="Ernakulam">Ernakulam</option>
+                                          <option value="Alappuzha">Alappuzha</option>
+                                          <option value="Idukki">Idukki</option>
+                                          <option value="Pathanamthitta">Pathanamthitta</option>
+                                          <option value="Idukki">Idukki</option>
+                                          <option value="Kollam">Kollam</option>
+                                          <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                        </select>
+                                        <span *ngIf="cityEditActivated" (click)="activateCityEdit()"><i class="fa fa-pencil-alt text-danger"></i><small>(Edit)</small></span>
+                                        <span *ngIf="cityChangeActivated" (click)="updateCity(cityValue)"><i class="fa fa-save text-success"></i><small>(Save)</small></span>
                                     </td>
                                 </tr>
                                 <tr>

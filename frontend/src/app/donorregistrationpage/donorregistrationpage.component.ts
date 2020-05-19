@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class DonorregistrationpageComponent implements OnInit {
 
   disabledValue:boolean = true;
+  cityName='';
 
   get userName(){
     return JSON.parse(localStorage.getItem('loggedUser')).displayName
@@ -24,9 +25,9 @@ export class DonorregistrationpageComponent implements OnInit {
   ngOnInit() {
   }
 
-  registerDonor(dob,bloodgroup,phone,city,weight){
+  registerDonor(dob,bloodgroup,phone,weight){
     var today = new Date();
-    if(dob!='' && bloodgroup!="0" && phone!='' && city!='' && weight!=''){
+    if(dob!='' && bloodgroup!="0" && phone!='' && this.cityName!='' && weight!=''){
       if(phone.length>=10 && this.checkPhoneStatus(phone)){
         firebase.database().ref('donors/' + this.uid).once('value',(snap)=>{
           if(!snap.exists()){
@@ -37,7 +38,7 @@ export class DonorregistrationpageComponent implements OnInit {
               blood_group : bloodgroup,
               weight: weight,
               phone : phone,
-              city : city,
+              city : this.cityName,
               uid : this.uid,
               status : 'Can Donate',
               statusUpdateTime : new Date()

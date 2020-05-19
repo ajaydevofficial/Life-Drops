@@ -35,7 +35,7 @@ export class UsercardsComponent implements OnInit {
               this.eventCount = 0;
               snap.forEach(element=>{
                 var value = element.val()
-                if((value.city.toLowerCase() == this.userCity.toLowerCase())&& (this.currentDate <= value.to_date)){
+                if((value.city.toLowerCase() == this.userCity.toLowerCase())&& (this.currentDate <= value.to_date) &&(value.status=="Verified")){
                   console.log(this.currentDate);
                   console.log(value.to_date);
                   this.eventCount++;
@@ -46,7 +46,7 @@ export class UsercardsComponent implements OnInit {
               this.urgentRequirementCount = 0;
               snap.forEach(element=>{
                 var value = element.val()
-                if(value.city.toLowerCase() == this.userCity.toLowerCase() && value.status.toLowerCase()=='open' ){
+                if(value.city.toLowerCase() == this.userCity.toLowerCase() && value.status.toLowerCase()=='open' &&(value.verification=="Verified") ){
                   this.urgentRequirementCount++;
                 }
               });
@@ -55,7 +55,7 @@ export class UsercardsComponent implements OnInit {
               this.requirementCount = 0;
               snap.forEach(element=>{
                 var value = element.val()
-                if(value.city.toLowerCase() == this.userCity.toLowerCase() && value.status.toLowerCase()=='open' ){
+                if(value.city.toLowerCase() == this.userCity.toLowerCase() && value.status.toLowerCase()=='open' &&(value.verification=="Verified") ){
                   this.requirementCount++;
                 }
               });

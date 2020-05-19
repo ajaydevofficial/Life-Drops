@@ -11,11 +11,8 @@
                           </div>
                             <div class="card-body">
                                 <div class="user">
-                                    <input id="address" type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search event location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
-                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" >
-                                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                                        (dragEnd)="markerDragEnd($event)"></agm-marker>
-                                    </agm-map>
+                                  <input class="form-control" id="pac-input" class="controls" type="text" placeholder="Search Location">
+                                  <div id="map"></div>
                                     <div class="form-group mt-3">
                                         <small>Note: Search for the location and if not found then search the area and move marker to the exact location</small>
                                     </div>
@@ -34,7 +31,7 @@
                                         <input #bystander required name="bystander" type="text" class="form-control" placeholder="Bystander's Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="bystander">Bystander's Phone</label>
+                                        <label for="bystander">Bystander's Phone(without country code)</label>
                                         <input #bystanderphone required name="bystander-phone" type="text" class="form-control" placeholder="Bystander's Phone">
                                     </div>
                                     <div class="form-group">
@@ -65,7 +62,23 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="city">City/District</label>
-                                        <input #city name="city" required type="text" class="form-control"  placeholder="City/District">
+                                        <select class="form-control"[(ngModel)]="cityName">
+                                          <option selected hidden>Select district</option>
+                                          <option value="Kasargod">Kasargod</option>
+                                          <option value="Kannur">Kannur</option>
+                                          <option value="Wayanad">Wayanad</option>
+                                          <option value="Kozhikode">Kozhikode</option>
+                                          <option value="Malapppuram">Malappuram</option>
+                                          <option value="Palakkad">Palakkad</option>
+                                          <option value="Thrissur">Thrissur</option>
+                                          <option value="Ernakulam">Ernakulam</option>
+                                          <option value="Alappuzha">Alappuzha</option>
+                                          <option value="Idukki">Idukki</option>
+                                          <option value="Pathanamthitta">Pathanamthitta</option>
+                                          <option value="Idukki">Idukki</option>
+                                          <option value="Kollam">Kollam</option>
+                                          <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <small>
@@ -84,8 +97,7 @@
                                         bloodgroup.value,
                                         quantity.value,
                                         hospital.value,
-                                        area.value,
-                                        city.value
+                                        area.value
                                     )" class="btn btn-danger btn-block">
                                       <i class="fas fa-bullhorn text-white-50"></i> Create Urgent Requirement
                                     </button>

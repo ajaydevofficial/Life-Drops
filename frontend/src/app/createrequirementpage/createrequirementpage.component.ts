@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import * as firebase from 'firebase'
 import { NotifierService } from '../shared/notifier.service';
+var latitude;
+var longitude;
 
 @Component({
   selector: 'app-createrequirementpage',
@@ -14,54 +16,79 @@ export class CreaterequirementpageComponent implements OnInit {
   longitude: number;
   zoom:number;
   geoCoder;
+  cityName;
 
   constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,private notifier:NotifierService) { }
 
   ngOnInit(){
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(
-        <HTMLInputElement>document.getElementById("address"), {
-        types: ['address']
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 10.8505159, lng: 76.2710833},
+      zoom: 10,
+      mapTypeId: 'roadmap'
     });
-  }
 
+    // Create the search box and link it to the UI element.
 
-  setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
+    var input = <HTMLInputElement>document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
       });
-    }
-  }
+      markers = [];
 
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
+
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+        latitude = place.geometry.location.lat();
+        longitude = place.geometry.location.lng();
+        console.log(latitude,longitude)
+      });
+      map.fitBounds(bounds);
+    });
+
   }
 
   newUrgentRequirement(
@@ -72,12 +99,10 @@ export class CreaterequirementpageComponent implements OnInit {
     bloodgroup,
     quantity,
     hospital,
-    area,
-    city,
-    phone
-    ){
+    area
+  ){
 
-    if(patient!="" &&doctor!="" && bystander!="" && bystanderphone!="" && bloodgroup!="0" && quantity!="" && hospital!="" && area!="" && city!=""){
+    if(patient!="" &&doctor!="" && bystander!="" && bystanderphone!="" && bloodgroup!="0" && quantity!="" && hospital!="" && area!="" && this.cityName!=""&&latitude&&longitude){
 
       if(bystanderphone.length>=10 && this.checkPhoneStatus(bystanderphone)){
         firebase.database().ref('blood-requirments/').push({
@@ -90,10 +115,10 @@ export class CreaterequirementpageComponent implements OnInit {
           quantity:quantity,
           hospital:hospital,
           area:area,
-          city : city,
+          city : this.cityName,
           location : {
-            lat : this.latitude,
-            lng : this.longitude
+            lat : latitude,
+            lng : longitude
           },
           verification : 'Verification Pending',
           status : 'open'
@@ -112,7 +137,7 @@ export class CreaterequirementpageComponent implements OnInit {
       }
     }
     else{
-      this.notifier.display('error','Please fill all the details');
+      this.notifier.display('error','Please fill all the details including map location');
     }
   }
   checkPhoneStatus(phone){

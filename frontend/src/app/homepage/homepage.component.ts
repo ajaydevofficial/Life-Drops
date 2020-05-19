@@ -19,6 +19,7 @@ export class HomepageComponent implements OnInit {
   cityEditActivated:boolean = true;
   cityChangeActivated:boolean = false;
   donorKey;
+  cityValue;
 
   get userName(){
     if(localStorage.getItem('loggedUser')){

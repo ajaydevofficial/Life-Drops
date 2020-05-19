@@ -62,6 +62,15 @@ export class RequirementComponent implements OnInit {
     }
   }
 
+  verify(key){
+    if(confirm("Confirm Verification")){
+      firebase.database().ref('blood-requirments/' + key).update({
+        verification: "Verified"
+      });
+    }
+  }
+
+
   delete(key){
     if(confirm("Confirm entry delete")){
       firebase.database().ref('blood-requirments/' + key).remove();

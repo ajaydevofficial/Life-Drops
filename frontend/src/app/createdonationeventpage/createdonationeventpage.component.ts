@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import * as firebase from 'firebase'
 import { NotifierService } from '../shared/notifier.service';
+var latitude;
+var longitude;
 
 @Component({
   selector: 'app-createdonationeventpage',
@@ -14,58 +16,81 @@ export class CreatedonationeventpageComponent implements OnInit {
   longitude: number;
   zoom:number;
   geoCoder;
+  cityName;
 
   constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,private notifier:NotifierService) { }
 
   ngOnInit(){
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(
-        <HTMLInputElement>document.getElementById("address"), {
-        types: ['address']
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 10.8505159, lng: 76.2710833},
+        zoom: 10,
+        mapTypeId: 'roadmap'
       });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
 
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      // Create the search box and link it to the UI element.
 
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
+      var input = <HTMLInputElement>document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+
+      // Bias the SearchBox results towards current map's viewport.
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      var markers = [];
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+      searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+          if (!place.geometry) {
+            console.log("Returned place contains no geometry");
             return;
           }
+          var icon = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
 
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
+          // Create a marker for each place.
+          markers.push(new google.maps.Marker({
+            map: map,
+            icon: icon,
+            title: place.name,
+            position: place.geometry.location
+          }));
+
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+          latitude = place.geometry.location.lat();
+          longitude = place.geometry.location.lng();
+          console.log(latitude,longitude)
         });
+        map.fitBounds(bounds);
       });
-    });
   }
-
-
-  setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
-    }
-  }
-
-  markerDragEnd($event: MouseEvent) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-  }
-
-  newDonationEvent(from_date,to_date,place,area,city,phone){
-    if(from_date&&to_date&&place&&area&&city){
+  newDonationEvent(from_date,to_date,place,area,phone){
+    if(from_date&&to_date&&place&&area&&this.cityName&&latitude&&longitude){
       if(phone.length>=10 && this.checkPhoneStatus(phone)){
         firebase.database().ref('blood-donation-events/').push({
           from_date : from_date,
@@ -73,10 +98,10 @@ export class CreatedonationeventpageComponent implements OnInit {
           place : place,
           phone: phone,
           area : area,
-          city : city,
+          city : this.cityName,
           location : {
-            lat : this.latitude,
-            lng : this.longitude
+            lat : latitude,
+            lng : longitude
           },
           status : 'Verification Pending'
         }).then(()=>{
@@ -94,7 +119,7 @@ export class CreatedonationeventpageComponent implements OnInit {
       }
     }
     else{
-      this.notifier.display('error','Please fill all the details')
+      this.notifier.display('error','Please fill all the details including map location')
     }
 
   }

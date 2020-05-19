@@ -2,7 +2,7 @@
 
   <div class="card shadow mb-4">
     <div class="card-header row m-0 justify-content-between py-3">
-      <h6 class="my-auto font-weight-bold text-primary"><i class="fa fa-times text-danger"></i> Unverified Donation Events</h6>
+      <h6 class="my-auto font-weight-bold text-primary"><i class="fa fa-times text-danger"></i> Unverified donation camps</h6>
       <button *ngIf="donationEventListUnverified && donationEventListUnverified.length!=0" (click)="exportEventListUnverified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
     </div>
     <div *ngIf="!donationEventListUnverified" class="card-body text-center">
@@ -58,7 +58,7 @@
 
   <div class="card shadow mb-4">
     <div class="card-header row m-0 justify-content-between py-3">
-      <h6 class="my-auto font-weight-bold text-primary">Verified Donation Events <span class="badge badge-success mr-1">Going on</span></h6>
+      <h6 class="my-auto font-weight-bold text-primary">Verified donation Camps <span class="badge badge-success mr-1">Going on</span></h6>
       <button *ngIf="ongoingDonationEvents && ongoingDonationEvents.length!=0" (click)="exportOngoingEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
     </div>
     <div *ngIf="!ongoingDonationEvents" class="card-body text-center">
@@ -113,7 +113,7 @@
 
   <div class="card shadow mb-4">
     <div class="card-header row m-0 justify-content-between py-3">
-      <h6 class="my-auto font-weight-bold text-primary">Verified Donation Events <span class="badge badge-primary mr-1">Upcoming</span></h6>
+      <h6 class="my-auto font-weight-bold text-primary">Verified donation camps <span class="badge badge-primary mr-1">Upcoming</span></h6>
       <button *ngIf="upcomingDonationEvents && upcomingDonationEvents.length!=0" (click)="exportUpcomingEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
     </div>
     <div *ngIf="!upcomingDonationEvents" class="card-body text-center">
@@ -168,7 +168,7 @@
 
   <div class="card shadow mb-4">
     <div class="card-header row m-0 justify-content-between py-3">
-      <h6 class="my-auto font-weight-bold text-primary">Donation Events <span class="badge badge-danger mr-1">Over</span></h6>
+      <h6 class="my-auto font-weight-bold text-primary">Donation camps <span class="badge badge-danger mr-1">Over</span></h6>
       <button *ngIf="overDonationEvents && overDonationEvents.length!=0" (click)="exportOverEventListVerified()" class="btn btn-default my-auto"><i class="fa fa-download text-dark"></i></button>
     </div>
     <div *ngIf="!overDonationEvents" class="card-body text-center">
